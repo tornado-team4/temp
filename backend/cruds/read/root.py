@@ -1,2 +1,2 @@
 def root():
-    return "Hello World Root!"
+    return "Hello World v0.0!"
