@@ -1,3 +1,11 @@
+'use client';
+
+import { Link } from '@chakra-ui/next-js';
+
 export default function Home() {
-  return <p>aaaa</p>;
+  return (
+    <Link href="/" color="blue" _hover={{ color: 'blue.500' }}>
+      aaaa
+    </Link>
+  );
 }
