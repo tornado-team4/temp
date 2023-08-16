@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prepare": "cd .. && husky install frontend/.husky",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_7787db14dd17f84"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
@@ -39,6 +40,7 @@
     "@storybook/testing-library": "0.2.0",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
+    "chromatic": "^6.22.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-prettier": "^9.0.0",
@@ -53,5 +55,7 @@
   },
   "resolutions": {
     "jackspeak": "2.1.1"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "frontend@0.1.0"
 }
