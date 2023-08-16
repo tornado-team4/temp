@@ -49,5 +49,8 @@
   },
   "engines": {
     "npm": "please_use_yarn_instead"
+  },
+  "resolutions": {
+    "jackspeak": "2.1.1"
   }
 }
