@@ -5,8 +5,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-import cruds.read.root as read_root
-import cruds.read.avatar_list as read_avatar_list
+import cruds.read.root as cruds_read_root
+import cruds.read.avatar_list as cruds_read_avatar_list
 import cruds.create.room as cruds_create_room
 
 app = FastAPI()
@@ -44,7 +44,7 @@ db = firestore.client()
     response_description="response description",
 )
 def get_root():
-    res = read_root.root()
+    res = cruds_read_root.root()
     return res
 
 
@@ -55,7 +55,7 @@ def get_root():
     response_description="アバターのリスト",
 )
 def get_avatar_list():
-    res = read_avatar_list.avatar_list(db)
+    res = cruds_read_avatar_list.avatar_list(db)
     return res
 
 
