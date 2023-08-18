@@ -26,8 +26,6 @@ export function Avatar() {
   // 配列の中からランダムで1つの値を取得する関数
   const chooseAtRandom = (data: string[]) => {
     const arrayIndex = Math.floor(Math.random() * data.length);
-    console.log(arrayIndex);
-
     return data[arrayIndex];
   };
 
