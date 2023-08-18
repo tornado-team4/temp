@@ -1,4 +1,4 @@
-def room(db, name, avatar_url):
+def create_room(db, name, avatar_url):
     room_collection_ref = db.collection("room")
     room_doc_id = room_collection_ref.document().id
 

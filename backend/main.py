@@ -5,9 +5,9 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-import cruds.read.root as cruds_read_root
-import cruds.read.avatar_list as cruds_read_avatar_list
-import cruds.create.room as cruds_create_room
+import cruds.read.root as read_root
+import cruds.read.avatar_list as read_avatar_list
+import cruds.create.create_room as create_room
 
 app = FastAPI()
 
@@ -44,7 +44,7 @@ db = firestore.client()
     response_description="response description",
 )
 def get_root():
-    res = cruds_read_root.root()
+    res = read_root.root()
     return res
 
 
@@ -55,7 +55,7 @@ def get_root():
     response_description="アバターのリスト",
 )
 def get_avatar_list():
-    res = cruds_read_avatar_list.avatar_list(db)
+    res = read_avatar_list.avatar_list(db)
     return res
 
 
@@ -65,6 +65,17 @@ def get_avatar_list():
     description="ルームを作成するエンドポイント",
     response_description="ルームのIDとユーザーのID",
 )
-def create_room(name: str, avatar_url: str):
-    res = cruds_create_room.room(db, name, avatar_url)
+def post_create_room(name: str, avatar_url: str):
+    res = create_room.create_room(db, name, avatar_url)
+    return res
+
+
+@app.post(
+    "/api/v1/join-room",
+    summary="ルームに参加するエンドポイント",
+    description="ルームに参加するエンドポイント",
+    response_description="ルームのIDとユーザーのID",
+)
+def post_join_room(room_id: str, name: str, avatar_url: str):
+    res = {}
     return res
