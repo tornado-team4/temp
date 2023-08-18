@@ -8,6 +8,7 @@ from firebase_admin import firestore
 import cruds.read.root as read_root
 import cruds.read.avatar_list as read_avatar_list
 import cruds.create.create_room as create_room
+import cruds.create.join_room as join_room
 
 app = FastAPI()
 
@@ -77,5 +78,5 @@ def post_create_room(name: str, avatar_url: str):
     response_description="ルームのIDとユーザーのID",
 )
 def post_join_room(room_id: str, name: str, avatar_url: str):
-    res = {}
+    res = join_room.join_room(db, room_id, name, avatar_url)
     return res
