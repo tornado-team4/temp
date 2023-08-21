@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { PanInfo, motion } from 'framer-motion';
+import { MotionStyle, PanInfo, motion } from 'framer-motion';
 
 type Props = {
   index: number;
@@ -28,37 +28,51 @@ export const Piece = ({ index, isCompleted }: Props) => {
       }
     }
   };
+  const draggableArea = document.getElementById(`dr-${index}`);
 
-  const createPieceStyle = (): React.CSSProperties => {
+  const createPieceStyle = (): MotionStyle => {
     const posX = (index % 6) * 16.6667;
     const posY = Math.floor(index / 6) * 25;
 
-    const draggableArea = document.getElementById(`dr-${index}`);
-
     return {
-      position: isComp ? 'fixed' : 'relative',
+      position: 'fixed',
       width: 1280 / 6,
       height: 720 / 4,
       backgroundImage: 'url(/dummy/dummy1.jpg)',
       backgroundSize: 1280,
       backgroundPosition: `${posX}% ${posY}%`,
-      top: draggableArea ? draggableArea.offsetTop : 0,
-      left: draggableArea ? draggableArea.offsetLeft : 0,
+      top: 0,
+      left: 0,
+      // top: draggableArea ? draggableArea.offsetTop : 0,
+      // left: draggableArea ? draggableArea.offsetLeft : 0,
     };
   };
-  const pieceStyle: React.CSSProperties = createPieceStyle();
+  const pieceStyle: MotionStyle = createPieceStyle();
 
   return (
     <motion.div
       drag
-      dragSnapToOrigin
+      // dragSnapToOrigin
+      dragConstraints={
+        isComp
+          ? {
+              top: draggableArea ? draggableArea.offsetTop : 0,
+              left: draggableArea ? draggableArea.offsetLeft : 0,
+              right: draggableArea ? draggableArea.offsetLeft : 0,
+              bottom: draggableArea ? draggableArea.offsetTop : 0,
+            }
+          : {
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+            }
+      }
       dragElastic={1}
       dragTransition={{ bounceStiffness: 150, bounceDamping: 15 }}
-      whileHover={{ cursor: 'grabbing' }}
+      whileHover={{ cursor: 'grabbing', boxShadow: '0 0 0 5px #fff219' }}
       whileTap={{ cursor: 'grabbing' }}
       whileDrag={{ scale: 1 }}
-      animate={isComp ? { scale: 1 } : { scale: 1 }}
-      transition={{ duration: 0.2 }}
       style={pieceStyle}
       onDragEnd={handleDragEnd}
     />
