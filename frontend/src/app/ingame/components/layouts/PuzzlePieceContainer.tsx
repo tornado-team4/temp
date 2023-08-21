@@ -8,9 +8,9 @@ export const PuzzlePieceContainer = () => {
   return (
     <Center height={100} bgColor="#D9D9D9">
       <Flex gap={4}>
-        <Piece />
-        <Piece />
-        <Piece />
+        <Piece index={0} />
+        <Piece index={8} />
+        <Piece index={24} />
       </Flex>
     </Center>
   );
