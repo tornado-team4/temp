@@ -3,3 +3,4 @@ uvicorn
 pytest
 httpx
 firebase_admin
+python-dotenv
