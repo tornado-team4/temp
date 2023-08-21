@@ -1,7 +1,8 @@
 'use client';
 
-import { Box, Center } from '@chakra-ui/react';
+import { Box, Center, Grid } from '@chakra-ui/react';
 import React from 'react';
+import { DraggableArea } from '../elements/DraggableArea';
 
 export function PuzzleContainer() {
   return (
@@ -11,8 +12,13 @@ export function PuzzleContainer() {
         height={720}
         bg="whiteAlpha.500"
         border="5px dashed #fff219"
-      ></Box>
-      ;
+      >
+        <Grid templateColumns="repeat(6, 1fr)" gap={0}>
+          {[...Array(24)].map((_, i) => (
+            <DraggableArea key={i} index={i} />
+          ))}
+        </Grid>
+      </Box>
     </Center>
   );
 }
