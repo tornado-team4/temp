@@ -1,3 +1,12 @@
+# ----------
 # BE
+# ----------
 __pycache__/
 .pytest_cache/
+
+# Firestore の認証周りの情報
+backend/path
+
+# ----------
+# FE
+# ----------
