@@ -10,7 +10,7 @@ export const PuzzlePieceContainer = () => {
       <Flex gap={4}>
         <Piece index={0} />
         <Piece index={8} />
-        <Piece index={24} />
+        <Piece index={23} />
       </Flex>
     </Center>
   );
