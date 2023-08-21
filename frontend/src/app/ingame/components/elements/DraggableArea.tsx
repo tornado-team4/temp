@@ -6,9 +6,5 @@ type Props = {
 };
 
 export const DraggableArea = ({ index }: Props) => {
-  return (
-    <Box height={178} id={`dr-${index}`}>
-      111
-    </Box>
-  );
+  return <Box height={178} id={`dr-${index}`} />;
 };
