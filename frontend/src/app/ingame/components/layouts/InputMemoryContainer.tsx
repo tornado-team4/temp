@@ -22,6 +22,7 @@ export function InputMemoryContainer() {
           <Input
             bgColor="whiteAlpha.900"
             placeholder="この写真へ思い出の一言"
+            maxLength={20}
           />
         </InputGroup>
 
