@@ -1,4 +1,4 @@
 {
-  "eslint.workingDirectories": ["./frontend"]
-  "cSpell.words": ["pytest"]
+  "eslint.workingDirectories": ["./frontend"],
+  "cSpell.words": ["pytest", "dotenv"]
 }
