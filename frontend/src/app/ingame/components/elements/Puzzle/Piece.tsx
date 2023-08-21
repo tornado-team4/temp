@@ -2,8 +2,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { log } from 'console';
 
-export const Piece = () => {
+type Props = {
+  isCompleted?: boolean;
+};
+
+export const Piece = ({ isCompleted }: Props) => {
+  log(isCompleted);
   return (
     <motion.div
       drag
@@ -17,6 +23,8 @@ export const Piece = () => {
         width: 100,
         height: 100,
       }}
-    ></motion.div>
+    >
+      aa
+    </motion.div>
   );
 };
