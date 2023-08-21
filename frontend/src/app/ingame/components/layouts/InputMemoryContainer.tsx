@@ -12,7 +12,7 @@ export function InputMemoryContainer() {
           bgColor="whiteAlpha.900"
           width={500}
         />
-        <Button>Submit</Button>
+        <Button>送る</Button>
       </Flex>
     </Center>
   );
