@@ -1,5 +1,5 @@
-import { Avatar } from '@/app/top/components/Avatar';
+import { JoinRoomArea } from '@/app/top/components/JoinRoomArea';
 
 export default function Top() {
-  return <Avatar />;
+  return <JoinRoomArea />;
 }
