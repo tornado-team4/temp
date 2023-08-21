@@ -39,21 +39,6 @@ export const Piece = ({ index, isCompleted }: Props) => {
       whileTap={{ cursor: 'grabbing' }}
       whileDrag={{ scale: 1 }}
       style={pieceStyle}
-    >
-      {/* <Image
-        src="/dummy/dummy2.jpg"
-        alt="1"
-        width={200}
-        height={200}
-        draggable={false}
-        style={{
-          // position: 'absolute',
-          clipPath: 'inset(0px 0px 0px 0px)',
-          // width: 200,
-          // height: 200,
-          objectFit: 'cover',
-        }}
-      /> */}
-    </motion.div>
+    />
   );
 };
