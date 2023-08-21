@@ -20,8 +20,8 @@ export const Piece = ({ index, isCompleted }: Props) => {
     return {
       backgroundColor: 'red',
       position: 'relative',
-      width: 100,
-      height: 100,
+      width: 1280 / 6,
+      height: 720 / 4,
       backgroundImage: 'url(/dummy/dummy2.jpg)',
       backgroundSize: 1280,
       backgroundPosition: `${posX}% ${posY}%`,
