@@ -28,7 +28,9 @@ export const Piece = ({ index, isCompleted }: Props) => {
       }
     }
   };
-  const draggableArea = document.getElementById(`dr-${index}`);
+
+  const draggableArea =
+    typeof window === 'object' ? document.getElementById(`dr-${index}`) : null;
 
   const createPieceStyle = (): MotionStyle => {
     const posX = (index % 6) * 16.6667;
