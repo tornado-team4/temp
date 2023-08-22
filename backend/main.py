@@ -2,13 +2,13 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+from firebase_admin import credentials, firestore
 
 import cruds.read.root as read_root
 import cruds.read.avatar_list as read_avatar_list
 import cruds.create.create_room as create_room
 import cruds.create.join_room as join_room
+import utils.convert_env_to_dict as convert_env_to_dict
 
 app = FastAPI()
 
@@ -25,8 +25,8 @@ app.add_middleware(
 # Firebase の認証
 
 # --------------------
-path = "path/db.json"
-cred = credentials.Certificate(path)
+service_account_dict = convert_env_to_dict.convert_env_to_dict()
+cred = credentials.Certificate(service_account_dict)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -36,8 +36,6 @@ db = firestore.client()
 # エンドポイント
 
 # --------------------
-
-
 @app.get(
     "/",
     summary="FastAPI の起動を確認するエンドポイント",
