@@ -5,7 +5,9 @@ __pycache__/
 .pytest_cache/
 
 # Firestore の認証周りの情報
+# TODO: .env での運用が安定した後削除する
 backend/path
+backend/.env
 
 # ----------
 # FE
