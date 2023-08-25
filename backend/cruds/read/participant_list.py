@@ -4,7 +4,6 @@ def participant_list(db, id):
     res = []
     # ドキュメントの値を表示
     for doc in docs:
-        print(f"{doc.id} => {doc.to_dict()}")
         res.append(
             {
                 "id": doc.id,
