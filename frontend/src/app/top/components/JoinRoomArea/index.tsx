@@ -8,7 +8,7 @@ import { InputName } from '@/components/Input/Name';
 
 export function JoinRoomArea() {
   return (
-    <Box maxW="50%" bgColor="#65DAFF" borderRadius="lg" py={8} px={28}>
+    <Box w="full" bgColor="#65DAFF" borderRadius="lg" py={8} px={28}>
       <VStack spacing={6} textAlign="center">
         <Text color="white" fontSize="2xl" fontWeight="bold">
           自分のアバターを設定してください
