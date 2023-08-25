@@ -12,5 +12,7 @@ export default meta;
 type Story = StoryObj<typeof HowToPlayArea>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    bgColor: 'blue',
+  },
 };
