@@ -85,7 +85,6 @@ def get_avatar_list():
     response_description="ルームのIDとユーザーのID",
 )
 def post_create_room(params: RoomParams):
-    print(params)
     name = params.name
     avatar_url = params.avatar_url
     res = create_room.create_room(db, name, avatar_url)
