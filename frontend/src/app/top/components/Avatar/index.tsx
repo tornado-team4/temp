@@ -8,16 +8,8 @@ import {
   ResponsiveValue,
   SkeletonCircle,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 import { MdReplay } from 'react-icons/md';
-
-const dummyAvatarImgList = [
-  'https://bit.ly/dan-abramov',
-  'https://bit.ly/kent-c-dodds',
-  'https://bit.ly/ryan-florence',
-  'https://bit.ly/prosper-baba',
-  'https://bit.ly/code-beast',
-];
+import { useJoinRoomArea } from '../hooks/useJoinRoomArea';
 
 type Props = {
   boxSize?: number;
@@ -38,6 +30,7 @@ type Props = {
     | ResponsiveValue<(string & object) | 'sm' | 'md' | 'lg' | 'xs'>
     | undefined;
   iconSize?: number;
+  avatarList?: string[];
 };
 
 export function Avatar({
@@ -45,10 +38,9 @@ export function Avatar({
   avatarSize = '2xl',
   iconButtonSize = 'sm',
   iconSize = 20,
+  avatarList: list,
 }: Props) {
-  const [avatarImg, setAvatarImg] = useState('');
-
-  useEffect(() => setAvatarImg(dummyAvatarImgList[0]), []);
+  const { avatar, setAvatar, avatarList } = useJoinRoomArea();
 
   // 配列の中からランダムで1つの値を取得する関数
   const chooseAtRandom = (data: string[]) => {
@@ -58,14 +50,14 @@ export function Avatar({
 
   const changeAvatar = () => {
     // TODO: 重複を消した状態のアバターのリストを取得する
-    const newAvatar = chooseAtRandom(dummyAvatarImgList);
-    setAvatarImg(newAvatar);
+    const newAvatar = chooseAtRandom(list ? list : avatarList ?? []);
+    setAvatar(newAvatar);
   };
 
   return (
     <Box pos="relative" w={boxSize}>
-      {avatarImg ? (
-        <ChakraAvatar size={avatarSize} src={avatarImg} />
+      {avatar ? (
+        <ChakraAvatar size={avatarSize} src={avatar} />
       ) : (
         <SkeletonCircle size="128" />
       )}
