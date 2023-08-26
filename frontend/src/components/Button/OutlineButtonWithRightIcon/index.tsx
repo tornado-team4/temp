@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react';
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 type Props = {
   text: string;
@@ -7,6 +7,7 @@ type Props = {
   color: string;
   bgColor: string;
   borderWidth?: string;
+  onClick?: () => void;
 };
 
 export function OutlineButtonWithRightIcon({
@@ -15,6 +16,7 @@ export function OutlineButtonWithRightIcon({
   color,
   bgColor,
   borderWidth = '3px',
+  onClick,
 }: Props) {
   return (
     <Button
@@ -27,6 +29,7 @@ export function OutlineButtonWithRightIcon({
       borderRadius="2xl"
       variant="outline"
       backgroundColor={bgColor}
+      onClick={onClick}
     >
       {text}
     </Button>
