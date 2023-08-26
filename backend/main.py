@@ -1,5 +1,6 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from starlette.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -40,6 +41,15 @@ db = firestore.client()
 # WebSocket接続を管理するための dict
 connected_clients = {}
 
+# --------------------
+
+# Pydanticのデータモデル
+
+# --------------------
+# Roomの作成、参加に関するパラメータ
+class RoomParams(BaseModel):
+    name: str
+    avatar_url: str
 
 # --------------------
 
@@ -74,7 +84,10 @@ def get_avatar_list():
     description="ルームを作成するエンドポイント",
     response_description="ルームのIDとユーザーのID",
 )
-def post_create_room(name: str, avatar_url: str):
+def post_create_room(params: RoomParams):
+    print(params)
+    name = params.name
+    avatar_url = params.avatar_url
     res = create_room.create_room(db, name, avatar_url)
     return res
 
