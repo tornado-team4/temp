@@ -2,8 +2,8 @@
 'use client';
 
 import React, { ChangeEvent, useState } from 'react';
-import { fetchImageUrl } from '@/firebase/fetchImageUrl';
-import { uploadImage } from '@/firebase/uploadImage';
+import { fetchImageUrl } from '@/libs/firebase/fetchImageUrl';
+import { uploadImage } from '@/libs/firebase/uploadImage';
 
 export default function FirebaseConnectTest() {
   const [image, setImage] = useState<File | null>(null);
