@@ -3,6 +3,7 @@ import { fetcher } from '@/utils/fetcher';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@chakra-ui/react';
+import { BASE_URL } from '@/utils/baseUrl';
 
 export const useJoinRoomArea = () => {
   const router = useRouter();
@@ -13,7 +14,7 @@ export const useJoinRoomArea = () => {
     isLoading,
   } = useSWR<string[]>(
     `
-  ${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/avatar-list
+  ${BASE_URL}/api/v1/avatar-list
   `,
     fetcher,
   );
@@ -27,7 +28,7 @@ export const useJoinRoomArea = () => {
 
     await fetch(
       `
-    ${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/create-room
+    ${BASE_URL}/api/v1/create-room
     `,
       {
         method: 'POST',
