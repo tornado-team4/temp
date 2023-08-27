@@ -8,8 +8,10 @@ from firebase_admin import credentials, firestore
 import cruds.read.root as read_root
 import cruds.read.avatar_list as read_avatar_list
 import cruds.read.participant_list as read_participant_list
+import cruds.read.image_list as read_image_list
 import cruds.create.create_room as create_room
 import cruds.create.join_room as join_room
+import cruds.create.upload_image as upload_image
 import utils.convert_env_to_dict as convert_env_to_dict
 
 app = FastAPI()
@@ -78,6 +80,16 @@ def get_avatar_list():
     return res
 
 
+@app.get(
+    "/api/v1/images",
+    summary="room id に紐づく画像名の一覧を取得するエンドポイント",
+    description="room id に紐づく画像名の一覧を取得するエンドポイント",
+)
+def get_image_list(room_id: str):
+    res = read_image_list.image_list(db, room_id)
+    return res
+
+
 @app.post(
     "/api/v1/create-room",
     summary="ルームを作成するエンドポイント",
@@ -99,6 +111,16 @@ def post_create_room(params: RoomParams):
 )
 def post_join_room(room_id: str, name: str, avatar_url: str):
     res = join_room.join_room(db, room_id, name, avatar_url)
+    return res
+
+
+@app.post(
+    "/api/v1/upload-image",
+    summary="Storage に保存したファイル名を room id と紐付けるためのエンドポイント",
+    description="Storage に保存したファイル名を room id と紐付けるためのエンドポイント",
+)
+def post_upload_image(room_id: str, file_name: str):
+    res = upload_image.upload_image(db, room_id, file_name)
     return res
 
 
