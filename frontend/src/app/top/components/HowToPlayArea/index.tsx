@@ -12,8 +12,7 @@ type Props = {
 
 export function HowToPlayArea({
   borderColor = '#FFF219',
-  // 背景色を一旦青に設定する。透過はwhiteAlpha.50
-  bgColor = 'blue',
+  bgColor = 'whiteAlpha.50',
   py = 4,
   px = 20,
 }: Props) {
