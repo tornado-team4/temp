@@ -1,19 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MotionStyle, PanInfo, motion } from 'framer-motion';
+import { AnimatePresence, PanInfo, motion } from 'framer-motion';
+import { ImageInfo } from '@/app/ingame/types/ImageInfo';
 
 type Props = {
   index: number;
-  isCompleted?: boolean;
+  handleComplete: (index: number) => void;
+  imageInfo: ImageInfo;
 };
 
-export const Piece = ({ index, isCompleted }: Props) => {
-  if (index === 0 && isCompleted === true) {
-    console.log(1);
-  }
-
-  const [isComp, setisComp] = useState(false);
+export const Piece = ({ index, handleComplete, imageInfo }: Props) => {
+  const [isComp, setIsComp] = useState(false);
 
   const handleDragEnd = (event: MouseEvent, info: PanInfo) => {
     const draggableArea = document.getElementById(`dr-${index}`);
@@ -24,59 +22,47 @@ export const Piece = ({ index, isCompleted }: Props) => {
         info.point.y > draggableArea.offsetTop &&
         info.point.y < draggableArea.offsetTop + draggableArea.offsetHeight;
       if (isOver) {
-        setisComp(true);
+        handleComplete(index);
+        setIsComp(true);
       }
     }
   };
 
-  const draggableArea =
-    typeof window === 'object' ? document.getElementById(`dr-${index}`) : null;
-
-  const createPieceStyle = (): MotionStyle => {
-    const posX = (index % 6) * 16.6667;
-    const posY = Math.floor(index / 6) * 25;
-
-    return {
-      position: 'fixed',
-      width: 1280 / 6,
-      height: 720 / 4,
-      backgroundImage: 'url(/dummy/dummy1.jpg)',
-      backgroundSize: 1280,
-      backgroundPosition: `${posX}% ${posY}%`,
-      top: 0,
-      left: 0,
-      // top: draggableArea ? draggableArea.offsetTop : 0,
-      // left: draggableArea ? draggableArea.offsetLeft : 0,
-    };
-  };
-  const pieceStyle: MotionStyle = createPieceStyle();
+  const posX = -((index % 6) * imageInfo.width) / 6;
+  const posY = -(Math.floor(index / 6) * imageInfo.height) / 4;
 
   return (
-    <motion.div
-      drag
-      // dragSnapToOrigin
-      dragConstraints={
-        isComp
-          ? {
-              top: draggableArea ? draggableArea.offsetTop : 0,
-              left: draggableArea ? draggableArea.offsetLeft : 0,
-              right: draggableArea ? draggableArea.offsetLeft : 0,
-              bottom: draggableArea ? draggableArea.offsetTop : 0,
-            }
-          : {
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-            }
-      }
-      dragElastic={1}
-      dragTransition={{ bounceStiffness: 150, bounceDamping: 15 }}
-      whileHover={{ cursor: 'grabbing', boxShadow: '0 0 0 5px #fff219' }}
-      whileTap={{ cursor: 'grabbing' }}
-      whileDrag={{ scale: 1 }}
-      style={pieceStyle}
-      onDragEnd={handleDragEnd}
-    />
+    <AnimatePresence>
+      {!isComp && (
+        <motion.div
+          drag
+          dragSnapToOrigin={isComp ? false : true}
+          dragElastic={1}
+          dragTransition={{
+            bounceStiffness: 150,
+            bounceDamping: 15,
+          }}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{
+            type: 'spring',
+            bounce: 0.5,
+            duration: 1,
+            delay: Math.random() * 0.75,
+          }}
+          whileHover={{ cursor: 'grabbing', boxShadow: '0 0 0 5px #fff219' }}
+          whileTap={{ cursor: 'grabbing' }}
+          whileDrag={{ scale: 1 }}
+          style={{
+            width: imageInfo.width / 6,
+            height: imageInfo.height / 4,
+            backgroundImage: `url(${imageInfo.url})`,
+            backgroundSize: imageInfo.width,
+            backgroundPosition: `${posX}px ${posY}px`,
+          }}
+          onDragEnd={handleDragEnd}
+        />
+      )}
+    </AnimatePresence>
   );
 };
