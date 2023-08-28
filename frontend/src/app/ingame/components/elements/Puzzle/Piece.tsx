@@ -2,14 +2,21 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence, PanInfo, motion } from 'framer-motion';
+import { ImageInfo } from '@/app/ingame/types/ImageInfo';
 
 type Props = {
   index: number;
   isCompleted?: boolean;
   handleComplete: () => void;
+  imageInfo: ImageInfo;
 };
 
-export const Piece = ({ index, isCompleted, handleComplete }: Props) => {
+export const Piece = ({
+  index,
+  isCompleted,
+  handleComplete,
+  imageInfo,
+}: Props) => {
   if (index === 0 && isCompleted === true) {
     console.log(1);
   }
@@ -31,8 +38,8 @@ export const Piece = ({ index, isCompleted, handleComplete }: Props) => {
     }
   };
 
-  const posX = (index % 6) * 16.6667;
-  const posY = Math.floor(index / 6) * 25;
+  const posX = -((index % 6) * imageInfo.width) / 6;
+  const posY = -(Math.floor(index / 6) * imageInfo.height) / 4;
 
   return (
     <AnimatePresence>
@@ -48,11 +55,11 @@ export const Piece = ({ index, isCompleted, handleComplete }: Props) => {
           whileTap={{ cursor: 'grabbing' }}
           whileDrag={{ scale: 1 }}
           style={{
-            width: 1280 / 6,
-            height: 720 / 4,
+            width: imageInfo.width / 6,
+            height: imageInfo.height / 4,
             backgroundImage: 'url(/dummy/dummy1.jpg)',
-            backgroundSize: 1280,
-            backgroundPosition: `${posX}% ${posY}%`,
+            backgroundSize: imageInfo.width,
+            backgroundPosition: `${posX}px ${posY}px`,
           }}
           onDragEnd={handleDragEnd}
         />

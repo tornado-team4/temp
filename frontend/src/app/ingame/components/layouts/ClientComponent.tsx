@@ -7,11 +7,18 @@ import { Box, Grid } from '@chakra-ui/react';
 import { PuzzlePieceContainer } from './PuzzlePieceContainer';
 import bg_img from '/public/bg_img.jpeg';
 import { PuzzlePiece } from '../../types/PuzzlePiece';
+import { ImageInfo } from '../../types/ImageInfo';
 // import { set } from 'firebase/database';
 
 export function ClientComponent() {
   // パズルのピースを一元管理するstate
   const [puzzlePieces, setPuzzlePieces] = useState<PuzzlePiece[]>([]);
+
+  const picture: ImageInfo = {
+    url: '/dummy/hd2.jpg',
+    width: 1280,
+    height: 720,
+  };
 
   const handleTimeout = (totalElapsedTime: number) => {
     console.log(totalElapsedTime);
@@ -34,6 +41,7 @@ export function ClientComponent() {
         <PuzzleContainer
           onComplete={handleTimeout}
           puzzlePieces={puzzlePieces}
+          imageInfo={picture}
         />
         <Grid
           templateColumns="7fr 5fr"
@@ -44,7 +52,10 @@ export function ClientComponent() {
           gap={0}
         >
           <InputMemoryContainer />
-          <PuzzlePieceContainer handleComplete={handlePieceComplete} />
+          <PuzzlePieceContainer
+            handleComplete={handlePieceComplete}
+            imageInfo={picture}
+          />
         </Grid>
       </Box>
     </>
