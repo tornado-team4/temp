@@ -29,6 +29,7 @@ export function PuzzleContainer({ onComplete, puzzlePieces }: Props) {
         height={720}
         bg="whiteAlpha.800"
         border="5px dashed #fff219"
+        boxSizing="content-box"
       >
         <Grid templateColumns="repeat(6, 1fr)" gap={0}>
           {[...Array(24)].map((_, i) => (
