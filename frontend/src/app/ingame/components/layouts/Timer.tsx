@@ -17,9 +17,9 @@ export const Timer = ({ onComplete }: Props) => {
     >
       <CountdownCircleTimer
         isPlaying
-        duration={8}
-        colors={['#004777', '#f7b801', '#A30000', '#ff6363']}
-        colorsTime={[9, 8, 7, 6]}
+        duration={180}
+        colors={['#6ef4e1', '#8AC926', '#ffca3a', '#ff7579']}
+        colorsTime={[180, 120, 60, 0]}
         size={120}
         onComplete={onComplete}
       >
