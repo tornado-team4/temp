@@ -6,11 +6,19 @@ import { DraggableArea } from '../elements/DraggableArea';
 
 export function PuzzleContainer() {
   return (
-    <Center p={0} bgColor={'#0071b3'} height="90vh">
+    <Center
+      w="full"
+      h="full"
+      minH="90vh"
+      bg="whiteAlpha.500"
+      borderRadius={10}
+      py={10}
+      px={4}
+    >
       <Box
         width={1280}
         height={720}
-        bg="whiteAlpha.500"
+        bg="whiteAlpha.800"
         border="5px dashed #fff219"
       >
         <Grid templateColumns="repeat(6, 1fr)" gap={0}>
