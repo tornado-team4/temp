@@ -11,7 +11,17 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
-export function InputMemoryContainer() {
+type Props = {
+  isDisabled?: boolean;
+  inputRef: React.RefObject<HTMLInputElement>;
+  onClick: () => void;
+};
+
+export function InputMemoryContainer({
+  isDisabled = false,
+  inputRef,
+  onClick,
+}: Props) {
   return (
     <Center height={100} bgColor="#78CDFD">
       <Flex gap={5}>
@@ -23,10 +33,14 @@ export function InputMemoryContainer() {
             bgColor="whiteAlpha.900"
             placeholder="この写真へ思い出の一言"
             maxLength={20}
+            ref={inputRef}
+            disabled={isDisabled}
           />
         </InputGroup>
 
-        <Button rightIcon={<EmailIcon />}>送る</Button>
+        <Button rightIcon={<EmailIcon />} onClick={onClick}>
+          送る
+        </Button>
       </Flex>
     </Center>
   );
