@@ -5,7 +5,6 @@ import { PuzzleContainer } from './PuzzleContainer';
 import { InputMemoryContainer } from './InputMemoryContainer';
 import { Box, Grid } from '@chakra-ui/react';
 import { PuzzlePieceContainer } from './PuzzlePieceContainer';
-import { Timer } from './Timer';
 import bg_img from '/public/bg_img.jpeg';
 
 export function ClientComponent() {
@@ -19,7 +18,6 @@ export function ClientComponent() {
         objectFit="cover"
         p={8}
       >
-        <Timer />
         <PuzzleContainer />
         <Grid
           templateColumns="7fr 5fr"

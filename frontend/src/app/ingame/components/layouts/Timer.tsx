@@ -7,8 +7,8 @@ export const Timer = () => {
     <Box
       style={{
         position: 'fixed',
-        right: '0',
-        top: '0',
+        right: 48,
+        top: 48,
       }}
     >
       <CountdownCircleTimer

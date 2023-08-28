@@ -3,6 +3,7 @@
 import { Box, Center, Grid } from '@chakra-ui/react';
 import React from 'react';
 import { DraggableArea } from '../elements/DraggableArea';
+import { Timer } from './Timer';
 
 export function PuzzleContainer() {
   return (
@@ -15,6 +16,8 @@ export function PuzzleContainer() {
       py={10}
       px={4}
     >
+      <Timer />
+
       <Box
         width={1280}
         height={720}
