@@ -1,6 +1,6 @@
 'use client';
 
-import { Center, Flex } from '@chakra-ui/react';
+import { Center, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
 import { Piece } from '../elements/Puzzle/Piece';
 import { ImageInfo } from '../../types/ImageInfo';
@@ -12,28 +12,36 @@ type Props = {
 export const PuzzlePieceContainer = ({ handleComplete, imageInfo }: Props) => {
   return (
     <Center height={100} bgColor="#D9D9D9">
-      <Flex gap={4}>
-        <Piece
-          index={0}
-          handleComplete={handleComplete}
-          imageInfo={imageInfo}
-        />
-        <Piece
-          index={8}
-          handleComplete={handleComplete}
-          imageInfo={imageInfo}
-        />
-        <Piece
-          index={23}
-          handleComplete={handleComplete}
-          imageInfo={imageInfo}
-        />
-        <Piece
-          index={23}
-          handleComplete={handleComplete}
-          imageInfo={imageInfo}
-        />
-      </Flex>
+      <Grid gap={4} templateColumns="repeat(4, 1fr)">
+        <GridItem>
+          <Piece
+            index={0}
+            handleComplete={handleComplete}
+            imageInfo={imageInfo}
+          />
+        </GridItem>
+        <GridItem>
+          <Piece
+            index={3}
+            handleComplete={handleComplete}
+            imageInfo={imageInfo}
+          />
+        </GridItem>
+        <GridItem>
+          <Piece
+            index={2}
+            handleComplete={handleComplete}
+            imageInfo={imageInfo}
+          />
+        </GridItem>
+        <GridItem>
+          <Piece
+            index={4}
+            handleComplete={handleComplete}
+            imageInfo={imageInfo}
+          />
+        </GridItem>
+      </Grid>
     </Center>
   );
 };
