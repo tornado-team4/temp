@@ -1,15 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { PuzzleContainer } from './PuzzleContainer';
 import { InputMemoryContainer } from './InputMemoryContainer';
 import { Box, Grid } from '@chakra-ui/react';
 import { PuzzlePieceContainer } from './PuzzlePieceContainer';
 import bg_img from '/public/bg_img.jpeg';
+import { PuzzlePiece } from '../../types/PuzzlePiece';
+// import { set } from 'firebase/database';
 
 export function ClientComponent() {
-  const handleComplete = (totalElapsedTime: number) => {
+  // パズルのピースを一元管理するstate
+  const [puzzlePieces, setPuzzlePieces] = useState<PuzzlePiece[]>([]);
+
+  const handleTimeout = (totalElapsedTime: number) => {
     console.log(totalElapsedTime);
+  };
+
+  const handlePieceComplete = () => {
+    setPuzzlePieces((prev) => [...prev, { id: 0, isCompleted: true }]);
   };
 
   return (
@@ -22,7 +31,10 @@ export function ClientComponent() {
         objectFit="cover"
         p={8}
       >
-        <PuzzleContainer onComplete={handleComplete} />
+        <PuzzleContainer
+          onComplete={handleTimeout}
+          puzzlePieces={puzzlePieces}
+        />
         <Grid
           templateColumns="7fr 5fr"
           position="fixed"
@@ -32,7 +44,7 @@ export function ClientComponent() {
           gap={0}
         >
           <InputMemoryContainer />
-          <PuzzlePieceContainer />
+          <PuzzlePieceContainer handleComplete={handlePieceComplete} />
         </Grid>
       </Box>
     </>

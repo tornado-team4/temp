@@ -4,12 +4,14 @@ import { Box, Center, Grid } from '@chakra-ui/react';
 import React from 'react';
 import { DraggableArea } from '../elements/DraggableArea';
 import { Timer } from './Timer';
+import { PuzzlePiece } from '../../types/PuzzlePiece';
 
 type Props = {
   onComplete: (totalElapsedTime: number) => void;
+  puzzlePieces: PuzzlePiece[];
 };
 
-export function PuzzleContainer({ onComplete }: Props) {
+export function PuzzleContainer({ onComplete, puzzlePieces }: Props) {
   return (
     <Center
       w="full"
@@ -30,7 +32,13 @@ export function PuzzleContainer({ onComplete }: Props) {
       >
         <Grid templateColumns="repeat(6, 1fr)" gap={0}>
           {[...Array(24)].map((_, i) => (
-            <DraggableArea key={i} index={i} />
+            <DraggableArea
+              key={i}
+              index={i}
+              isComplete={
+                puzzlePieces.filter((p) => p.id === i)[0]?.isCompleted || false
+              }
+            />
           ))}
         </Grid>
       </Box>
