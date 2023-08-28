@@ -5,7 +5,11 @@ import React from 'react';
 import { DraggableArea } from '../elements/DraggableArea';
 import { Timer } from './Timer';
 
-export function PuzzleContainer() {
+type Props = {
+  onComplete: (totalElapsedTime: number) => void;
+};
+
+export function PuzzleContainer({ onComplete }: Props) {
   return (
     <Center
       w="full"
@@ -16,7 +20,7 @@ export function PuzzleContainer() {
       py={10}
       px={4}
     >
-      <Timer />
+      <Timer onComplete={onComplete} />
 
       <Box
         width={1280}

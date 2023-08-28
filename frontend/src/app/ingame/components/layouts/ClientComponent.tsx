@@ -8,6 +8,10 @@ import { PuzzlePieceContainer } from './PuzzlePieceContainer';
 import bg_img from '/public/bg_img.jpeg';
 
 export function ClientComponent() {
+  const handleComplete = (totalElapsedTime: number) => {
+    console.log(totalElapsedTime);
+  };
+
   return (
     <>
       <Box
@@ -18,7 +22,7 @@ export function ClientComponent() {
         objectFit="cover"
         p={8}
       >
-        <PuzzleContainer />
+        <PuzzleContainer onComplete={handleComplete} />
         <Grid
           templateColumns="7fr 5fr"
           position="fixed"
