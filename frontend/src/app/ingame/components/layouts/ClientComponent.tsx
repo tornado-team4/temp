@@ -14,6 +14,9 @@ export function ClientComponent() {
   // パズルのピースを一元管理するstate
   const [puzzlePieces, setPuzzlePieces] = useState<PuzzlePiece[]>([]);
 
+  // ユーザーのピースを管理する
+  const [userPieces, setUserPieces] = useState<PuzzlePiece[]>([]);
+
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const picture: ImageInfo = {
@@ -31,8 +34,16 @@ export function ClientComponent() {
 
   const handleClickSendMemory = () => {
     const input = inputRef.current;
-
     console.log(input?.value);
+
+    // 0~23からランダムに4つ選ぶ
+    const randomIndexes = [...Array(4)].map(() =>
+      Math.floor(Math.random() * 24),
+    );
+
+    setUserPieces(
+      randomIndexes.map((index) => ({ id: index, isCompleted: true })),
+    );
   };
 
   return (
@@ -63,8 +74,9 @@ export function ClientComponent() {
             onClick={handleClickSendMemory}
           />
           <PuzzlePieceContainer
-            handleComplete={handlePieceComplete}
+            userPieces={userPieces}
             imageInfo={picture}
+            handleComplete={handlePieceComplete}
           />
         </Grid>
       </Box>

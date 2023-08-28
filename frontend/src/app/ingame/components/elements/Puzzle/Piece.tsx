@@ -38,9 +38,18 @@ export const Piece = ({ index, handleComplete, imageInfo }: Props) => {
           drag
           dragSnapToOrigin={isComp ? false : true}
           dragElastic={1}
-          dragTransition={{ bounceStiffness: 150, bounceDamping: 15 }}
+          dragTransition={{
+            bounceStiffness: 150,
+            bounceDamping: 15,
+          }}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
+          transition={{
+            type: 'spring',
+            bounce: 0.5,
+            duration: 1,
+            delay: Math.random() * 0.75,
+          }}
           whileHover={{ cursor: 'grabbing', boxShadow: '0 0 0 5px #fff219' }}
           whileTap={{ cursor: 'grabbing' }}
           whileDrag={{ scale: 1 }}
