@@ -5,10 +5,12 @@ import { PuzzleContainer } from './PuzzleContainer';
 import { InputMemoryContainer } from './InputMemoryContainer';
 import { Grid } from '@chakra-ui/react';
 import { PuzzlePieceContainer } from './PuzzlePieceContainer';
+import { Timer } from './Timer';
 
 export function ClientComponent() {
   return (
     <>
+      <Timer />
       <PuzzleContainer />
       <Grid
         templateColumns="7fr 5fr"
