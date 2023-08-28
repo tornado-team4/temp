@@ -24,10 +24,8 @@ export function ClientComponent() {
     console.log(totalElapsedTime);
   };
 
-  const handlePieceComplete = (index: number) => {
+  const handlePieceComplete = (index: number) =>
     setPuzzlePieces((prev) => [...prev, { id: index, isCompleted: true }]);
-  };
-
   return (
     <>
       <Box
