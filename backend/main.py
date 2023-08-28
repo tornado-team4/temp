@@ -125,6 +125,7 @@ def post_upload_image(room_id: str, file_name: str):
 
 
 # WebSocket用のエンドポイント
+# NOTE: 参加者の追加を検知して参加者のリストを返す & ゲームの開始を検知して、参加者にその旨を知らせる
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(ws: WebSocket, client_id: str):
     await ws.accept()
@@ -138,11 +139,17 @@ async def websocket_endpoint(ws: WebSocket, client_id: str):
         connected_clients[client_id][key] = ws
 
     try:
-        # クライアントからのメッセージを待ち受け
         while True:
-            _ = await ws.receive_text()
+            # receive_test
+            # "connect"：ロビー画面をマウントする際に使用 -> 参加者のリストを返す
+            # "start"：ゲーム開始ボタンを押した場合に使用 -> ゲームの開始を知らせる
+            receive_text = await ws.receive_text()
 
-            res = read_participant_list.participant_list(db, client_id)
+            if receive_text == "connect":
+                res = read_participant_list.participant_list(db, client_id)
+            elif receive_text == "start":
+                res = "start"
+
             for client in connected_clients[client_id].values():
                 await client.send_json(res)
 
