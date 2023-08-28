@@ -1,8 +1,12 @@
 'use client';
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
-export const Timer = () => {
+type Props = {
+  onComplete: (totalElapsedTime: number) => void;
+};
+
+export const Timer = ({ onComplete }: Props) => {
   return (
     <Box
       style={{
@@ -16,8 +20,14 @@ export const Timer = () => {
         duration={8}
         colors={['#004777', '#f7b801', '#A30000', '#ff6363']}
         colorsTime={[9, 8, 7, 6]}
+        size={120}
+        onComplete={onComplete}
       >
-        {({ remainingTime }) => remainingTime}
+        {({ remainingTime }) => (
+          <Text fontSize="4xl" fontWeight="bold">
+            {remainingTime}
+          </Text>
+        )}
       </CountdownCircleTimer>
     </Box>
   );
