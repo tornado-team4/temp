@@ -9,10 +9,12 @@ import cruds.read.root as read_root
 import cruds.read.avatar_list as read_avatar_list
 import cruds.read.participant_list as read_participant_list
 import cruds.read.image_list as read_image_list
+import cruds.read.comment_list as read_comment_list
 import cruds.create.create_room as create_room
 import cruds.create.join_room as join_room
 import cruds.create.upload_image as upload_image
 import utils.convert_env_to_dict as convert_env_to_dict
+import utils.selection_album_comments as selection_album_comments
 
 app = FastAPI()
 
@@ -43,6 +45,7 @@ db = firestore.client()
 # WebSocket接続を管理するための dict
 connected_clients = {}
 
+
 # --------------------
 
 # Pydanticのデータモデル
@@ -52,6 +55,7 @@ connected_clients = {}
 class RoomParams(BaseModel):
     name: str
     avatar_url: str
+
 
 # --------------------
 
@@ -88,6 +92,23 @@ def get_avatar_list():
 def get_image_list(room_id: str):
     res = read_image_list.image_list(db, room_id)
     return res
+
+
+@app.get(
+    "/api/v1/comment-list",
+    summary="コメント一覧を取得するエンドポイント",
+    description="コメント一覧を取得するエンドポイント",
+)
+def get_comment_list(room_id: str):
+    fetch_data = read_comment_list.comment_list(db, room_id)
+
+    # 取得したデータを元にアルバムに使用するコメントを抽出
+    albumComments = selection_album_comments.selection_album_comments(fetch_data)
+
+    return {
+        "allComments": fetch_data,
+        "albumComments": albumComments,
+    }
 
 
 @app.post(
