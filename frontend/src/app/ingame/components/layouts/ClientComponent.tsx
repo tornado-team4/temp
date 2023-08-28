@@ -42,7 +42,7 @@ export function ClientComponent() {
           imageInfo={picture}
         />
         <Grid
-          templateColumns="7fr 5fr"
+          templateColumns="5fr 7fr"
           position="fixed"
           bottom="0"
           left={0}

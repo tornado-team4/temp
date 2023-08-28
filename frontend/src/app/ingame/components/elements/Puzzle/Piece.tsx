@@ -47,7 +47,7 @@ export const Piece = ({ index, handleComplete, imageInfo }: Props) => {
           style={{
             width: imageInfo.width / 6,
             height: imageInfo.height / 4,
-            backgroundImage: 'url(/dummy/dummy1.jpg)',
+            backgroundImage: `url(${imageInfo.url})`,
             backgroundSize: imageInfo.width,
             backgroundPosition: `${posX}px ${posY}px`,
           }}

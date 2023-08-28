@@ -28,7 +28,7 @@ export const DraggableArea = ({ index, isComplete, imageInfo }: Props) => {
             width={imageInfo.width / 6}
             height={imageInfo.height / 4}
             bgSize={imageInfo.width}
-            bgImage={isComplete ? 'url(/dummy/hd2.jpg)' : undefined}
+            bgImage={isComplete ? `url(${imageInfo.url})` : undefined}
             bgPosition={`${posX}px ${posY}px`}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}

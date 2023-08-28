@@ -28,6 +28,11 @@ export const PuzzlePieceContainer = ({ handleComplete, imageInfo }: Props) => {
           handleComplete={handleComplete}
           imageInfo={imageInfo}
         />
+        <Piece
+          index={23}
+          handleComplete={handleComplete}
+          imageInfo={imageInfo}
+        />
       </Flex>
     </Center>
   );
