@@ -24,8 +24,8 @@ export function ClientComponent() {
     console.log(totalElapsedTime);
   };
 
-  const handlePieceComplete = () => {
-    setPuzzlePieces((prev) => [...prev, { id: 0, isCompleted: true }]);
+  const handlePieceComplete = (index: number) => {
+    setPuzzlePieces((prev) => [...prev, { id: index, isCompleted: true }]);
   };
 
   return (

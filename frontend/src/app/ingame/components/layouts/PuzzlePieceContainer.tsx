@@ -6,7 +6,7 @@ import { Piece } from '../elements/Puzzle/Piece';
 import { ImageInfo } from '../../types/ImageInfo';
 
 type Props = {
-  handleComplete: () => void;
+  handleComplete: (index: number) => void;
   imageInfo: ImageInfo;
 };
 export const PuzzlePieceContainer = ({ handleComplete, imageInfo }: Props) => {

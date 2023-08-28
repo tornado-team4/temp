@@ -6,22 +6,12 @@ import { ImageInfo } from '@/app/ingame/types/ImageInfo';
 
 type Props = {
   index: number;
-  isCompleted?: boolean;
-  handleComplete: () => void;
+  handleComplete: (index: number) => void;
   imageInfo: ImageInfo;
 };
 
-export const Piece = ({
-  index,
-  isCompleted,
-  handleComplete,
-  imageInfo,
-}: Props) => {
-  if (index === 0 && isCompleted === true) {
-    console.log(1);
-  }
-
-  const [isComp, setisComp] = useState(false);
+export const Piece = ({ index, handleComplete, imageInfo }: Props) => {
+  const [isComp, setIsComp] = useState(false);
 
   const handleDragEnd = (event: MouseEvent, info: PanInfo) => {
     const draggableArea = document.getElementById(`dr-${index}`);
@@ -32,8 +22,8 @@ export const Piece = ({
         info.point.y > draggableArea.offsetTop &&
         info.point.y < draggableArea.offsetTop + draggableArea.offsetHeight;
       if (isOver) {
-        handleComplete();
-        setisComp(true);
+        handleComplete(index);
+        setIsComp(true);
       }
     }
   };
