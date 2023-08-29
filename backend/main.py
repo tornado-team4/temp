@@ -1,6 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import Union
 
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -55,6 +56,7 @@ connected_clients = {}
 class RoomParams(BaseModel):
     name: str
     avatar_url: str
+    room_id: Union[str, None] = None
 
 
 # --------------------
@@ -130,7 +132,10 @@ def post_create_room(params: RoomParams):
     description="ルームに参加するエンドポイント",
     response_description="ルームのIDとユーザーのID",
 )
-def post_join_room(room_id: str, name: str, avatar_url: str):
+def post_join_room(params: RoomParams):
+    room_id = params.room_id
+    name = params.name
+    avatar_url = params.avatar_url
     res = join_room.join_room(db, room_id, name, avatar_url)
     return res
 
