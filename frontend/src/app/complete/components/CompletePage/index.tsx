@@ -43,6 +43,7 @@ export const CompletePage = ({
               color="#56C1FC"
               bgColor="white"
               maxW="200px"
+              isDisabled={false}
               onClick={onClickBackHome}
             />
             <HSpacer size={8} />
@@ -52,6 +53,7 @@ export const CompletePage = ({
               color="#56C1FC"
               bgColor="white"
               maxW="200px"
+              isDisabled={false}
               onClick={onClickEdit}
             />
           </HStack>
