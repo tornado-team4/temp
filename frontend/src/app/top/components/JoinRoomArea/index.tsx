@@ -43,6 +43,7 @@ export function JoinRoomArea({ roomId }: Props) {
             rightIcon={<BiSolidRightArrow />}
             color="#56C1FC"
             bgColor="white"
+            isDisabled={name === ''}
             onClick={handleJoinRoom}
           />
         </Box>
