@@ -23,7 +23,7 @@ export const useJoinRoomArea = () => {
   // リストの最初の値を初期に表示されるavatarとする
   const initialAvatar = avatarList ? avatarList[0] : '';
 
-  const onSubmitHandler = async () => {
+  const onCreateRoomHandler = async () => {
     const avatarUrl = avatar ? avatar : initialAvatar;
 
     await fetch(
@@ -50,6 +50,33 @@ export const useJoinRoomArea = () => {
       );
   };
 
+  const onJoinRoomHandler = async (roomId: string) => {
+    const avatarUrl = avatar ? avatar : initialAvatar;
+
+    await fetch(
+      `
+    ${BASE_URL}/api/v1/join-room
+    `,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, avatar_url: avatarUrl, room_id: roomId }),
+      },
+    )
+      .then(() => router.replace('/'))
+      .catch(() =>
+        toast({
+          title: '通信に失敗しました。',
+          description:
+            '申し訳ありませんが、時間をおいてもう一度お試しください。',
+          status: 'error',
+          isClosable: true,
+        }),
+      );
+  };
+
   return {
     avatarList,
     avatarListError: error,
@@ -58,6 +85,7 @@ export const useJoinRoomArea = () => {
     setAvatar,
     name,
     setName,
-    onSubmitHandler,
+    onCreateRoomHandler,
+    onJoinRoomHandler,
   };
 };
