@@ -2,25 +2,40 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { Avatar } from './index';
+import { useState } from 'react';
 
 const meta: Meta<typeof Avatar> = {
   title: 'TopPage/Avatar',
   component: Avatar,
+  decorators: [
+    (_Avatar, context) => {
+      const dummyAvatarImgList = [
+        'https://bit.ly/dan-abramov',
+        'https://bit.ly/kent-c-dodds',
+        'https://bit.ly/ryan-florence',
+        'https://bit.ly/prosper-baba',
+        'https://bit.ly/code-beast',
+      ];
+      const [avatar, setAvatar] = useState('');
+      return (
+        <_Avatar
+          args={{
+            ...context.args,
+            avatarUrl: avatar,
+            setAvatarUrl: setAvatar,
+            avatarList: dummyAvatarImgList,
+          }}
+        />
+      );
+    },
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof Avatar>;
-const dummyAvatarImgList = [
-  'https://bit.ly/dan-abramov',
-  'https://bit.ly/kent-c-dodds',
-  'https://bit.ly/ryan-florence',
-  'https://bit.ly/prosper-baba',
-  'https://bit.ly/code-beast',
-];
+
 export const Default: Story = {
-  args: {
-    avatarList: dummyAvatarImgList,
-  },
+  args: {},
 };
 
 export const Md: Story = {

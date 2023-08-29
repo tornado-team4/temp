@@ -12,8 +12,15 @@ type Props = {
 };
 
 export function JoinRoomArea({ roomId }: Props) {
-  const { name, setName, onCreateRoomHandler, onJoinRoomHandler } =
-    useJoinRoomArea();
+  const {
+    name,
+    setName,
+    onCreateRoomHandler,
+    onJoinRoomHandler,
+    avatar,
+    setAvatar,
+    avatarList,
+  } = useJoinRoomArea();
 
   const handleJoinRoom = async () => {
     if (roomId === '') {
@@ -31,7 +38,11 @@ export function JoinRoomArea({ roomId }: Props) {
         <Text color="white" fontSize="2xl" fontWeight="bold">
           自分のアバターを設定してください
         </Text>
-        <Avatar />
+        <Avatar
+          avatarList={avatarList}
+          avatarUrl={avatar}
+          setAvatarUrl={setAvatar}
+        />
         <InputName
           borderColor="#56C1FC"
           value={name}

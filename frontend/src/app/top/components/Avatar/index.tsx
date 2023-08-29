@@ -1,5 +1,6 @@
 'use client';
 
+import type { Dispatch, SetStateAction } from 'react';
 import {
   Box,
   Avatar as ChakraAvatar,
@@ -9,7 +10,6 @@ import {
   SkeletonCircle,
 } from '@chakra-ui/react';
 import { MdReplay } from 'react-icons/md';
-import { useJoinRoomArea } from '../hooks/useJoinRoomArea';
 
 type Props = {
   boxSize?: number;
@@ -31,6 +31,8 @@ type Props = {
     | undefined;
   iconSize?: number;
   avatarList?: string[];
+  avatarUrl?: string;
+  setAvatarUrl: Dispatch<SetStateAction<string>>;
 };
 
 export function Avatar({
@@ -38,10 +40,10 @@ export function Avatar({
   avatarSize = '2xl',
   iconButtonSize = 'sm',
   iconSize = 20,
-  avatarList: list,
+  avatarList,
+  avatarUrl,
+  setAvatarUrl,
 }: Props) {
-  const { avatar, setAvatar, avatarList } = useJoinRoomArea();
-
   // 配列の中からランダムで1つの値を取得する関数
   const chooseAtRandom = (data: string[]) => {
     const arrayIndex = Math.floor(Math.random() * data.length);
@@ -50,14 +52,14 @@ export function Avatar({
 
   const changeAvatar = () => {
     // TODO: 重複を消した状態のアバターのリストを取得する
-    const newAvatar = chooseAtRandom(list ? list : avatarList ?? []);
-    setAvatar(newAvatar);
+    const newAvatar = chooseAtRandom(avatarList ?? []);
+    setAvatarUrl(newAvatar);
   };
 
   return (
     <Box pos="relative" w={boxSize}>
-      {avatar ? (
-        <ChakraAvatar size={avatarSize} src={avatar} />
+      {avatarUrl ? (
+        <ChakraAvatar size={avatarSize} src={avatarUrl} />
       ) : (
         <SkeletonCircle size="128" />
       )}
