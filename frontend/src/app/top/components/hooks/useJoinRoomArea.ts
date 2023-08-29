@@ -55,7 +55,7 @@ export const useJoinRoomArea = () => {
 
     await fetch(
       `
-    ${BASE_URL}/api/v1/create-room
+    ${BASE_URL}/api/v1/join-room
     `,
       {
         method: 'POST',
