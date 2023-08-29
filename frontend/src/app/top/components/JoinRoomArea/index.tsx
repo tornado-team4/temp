@@ -7,8 +7,30 @@ import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWit
 import { InputName } from '@/components/Input/Name';
 import { useJoinRoomArea } from '../hooks/useJoinRoomArea';
 
-export function JoinRoomArea() {
-  const { name, setName, onSubmitHandler } = useJoinRoomArea();
+type Props = {
+  roomId: string;
+};
+
+export function JoinRoomArea({ roomId }: Props) {
+  const {
+    name,
+    setName,
+    onCreateRoomHandler,
+    onJoinRoomHandler,
+    avatar,
+    setAvatar,
+    avatarList,
+  } = useJoinRoomArea();
+
+  const handleJoinRoom = async () => {
+    if (roomId === '') {
+      await onCreateRoomHandler();
+    } else {
+      await onJoinRoomHandler(roomId);
+    }
+
+    // ここに非同期処理が完了した後の状態更新などを追加
+  };
 
   return (
     <Box w="full" bgColor="#65DAFF" borderRadius="lg" py={8} px={28}>
@@ -16,7 +38,11 @@ export function JoinRoomArea() {
         <Text color="white" fontSize="2xl" fontWeight="bold">
           自分のアバターを設定してください
         </Text>
-        <Avatar />
+        <Avatar
+          avatarList={avatarList}
+          avatarUrl={avatar}
+          setAvatarUrl={setAvatar}
+        />
         <InputName
           borderColor="#56C1FC"
           value={name}
@@ -28,7 +54,8 @@ export function JoinRoomArea() {
             rightIcon={<BiSolidRightArrow />}
             color="#56C1FC"
             bgColor="white"
-            onClick={onSubmitHandler}
+            isDisabled={name === ''}
+            onClick={handleJoinRoom}
           />
         </Box>
       </VStack>

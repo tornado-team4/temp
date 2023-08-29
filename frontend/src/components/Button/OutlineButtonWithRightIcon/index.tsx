@@ -8,6 +8,7 @@ type Props = {
   bgColor: string;
   borderWidth?: string;
   maxW?: string;
+  isDisabled: boolean;
   onClick?: () => void;
 };
 
@@ -18,6 +19,7 @@ export function OutlineButtonWithRightIcon({
   bgColor,
   borderWidth = '3px',
   maxW = '1000px',
+  isDisabled,
   onClick,
 }: Props) {
   return (
@@ -32,6 +34,7 @@ export function OutlineButtonWithRightIcon({
       variant="outline"
       backgroundColor={bgColor}
       maxW={maxW}
+      isDisabled={isDisabled}
       onClick={onClick}
     >
       {text}

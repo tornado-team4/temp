@@ -26,7 +26,7 @@ export const PlayerList = ({ list }: Props) => {
           fontSize={{ base: 'xl', sm: '2xl' }}
           fontWeight="bold"
         >
-          プレイヤー {playerNum}/14
+          プレイヤー {playerNum}/6
         </Text>
         <Box w="full" h="lg" overflow="scroll">
           <VStack spacing={3} w="full">
