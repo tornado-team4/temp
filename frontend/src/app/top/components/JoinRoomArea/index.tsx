@@ -8,7 +8,8 @@ import { InputName } from '@/components/Input/Name';
 import { useJoinRoomArea } from '../hooks/useJoinRoomArea';
 
 export function JoinRoomArea() {
-  const { name, setName, onSubmitHandler } = useJoinRoomArea();
+  const { name, setName, onSubmitHandler, avatar, setAvatar, avatarList } =
+    useJoinRoomArea();
 
   return (
     <Box w="full" bgColor="#65DAFF" borderRadius="lg" py={8} px={28}>
@@ -16,7 +17,11 @@ export function JoinRoomArea() {
         <Text color="white" fontSize="2xl" fontWeight="bold">
           自分のアバターを設定してください
         </Text>
-        <Avatar />
+        <Avatar
+          avatarList={avatarList}
+          avatarUrl={avatar}
+          setAvatarUrl={setAvatar}
+        />
         <InputName
           borderColor="#56C1FC"
           value={name}
