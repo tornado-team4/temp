@@ -14,7 +14,9 @@ import { useLobbyPage } from '@/app/lobby/hooks/useLobbyPage';
 export const LobbyPage = () => {
   // 一旦roomIDを直で記載
   const roomId = 'TBOvYdRCOpVK3aW3qMLp';
-  const { players } = useLobbyPage({ roomId: roomId });
+  const { players, setImage, handleStart, isLoading } = useLobbyPage({
+    roomId: roomId,
+  });
 
   return (
     <Box
@@ -43,7 +45,7 @@ export const LobbyPage = () => {
             </Box>
             <Box w={{ base: 'full', md: '50%' }}>
               <VStack h="full" w="full">
-                <PuzzleMaker />
+                <PuzzleMaker setImage={setImage} />
                 <VSpacer size={8} />
                 <HStack w="full">
                   <OutlineButtonWithRightIcon
@@ -61,6 +63,8 @@ export const LobbyPage = () => {
                     color={'#56C1FC'}
                     bgColor={'white'}
                     isDisabled={false}
+                    isLoading={isLoading}
+                    onClick={handleStart}
                   />
                 </HStack>
               </VStack>
