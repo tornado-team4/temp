@@ -1,12 +1,20 @@
 import { User } from '@/types/User';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { uploadImage } from '@/libs/firebase/uploadImage';
+import { BASE_URL } from '@/utils/baseUrl';
+import { useToast } from '@chakra-ui/react';
 
 type Props = {
   roomId: string;
 };
 
 export const useLobbyPage = ({ roomId }: Props) => {
+  const router = useRouter();
+  const toast = useToast();
   const [players, setPlayers] = useState<User[]>([]);
+  const [image, setImage] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const id = roomId;
   const domain = new URL(process.env.NEXT_PUBLIC_BACKEND_URL ?? '');
   const host = domain.host;
@@ -25,13 +33,16 @@ export const useLobbyPage = ({ roomId }: Props) => {
         console.log('ゲームの開始を検知');
       } else {
         const participantList: User[] = [];
-        data.map((d) =>
-          participantList.push({
-            id: d.id,
-            name: d.name,
-            avatarUrl: d.avatar_url,
-            role: d.role,
-          }),
+        data.map(
+          (
+            d: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+          ) =>
+            participantList.push({
+              id: d.id,
+              name: d.name,
+              avatarUrl: d.avatar_url,
+              role: d.role,
+            }),
         );
         setPlayers(participantList);
       }
@@ -44,5 +55,64 @@ export const useLobbyPage = ({ roomId }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { players };
+  const connectImageNameToRoomId = async ({
+    fileName,
+  }: {
+    fileName: string;
+  }) => {
+    await fetch(
+      `
+    ${BASE_URL}/api/v1/upload-image
+    `,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ room_id: roomId, file_name: fileName }),
+      },
+    )
+      .then(() => {
+        if (ws.readyState === 1) {
+          // ゲームの開始ボタンが押された場合に参加者にその旨を知らせるためのwsメッセージ
+          ws.send('start');
+
+          router.replace('/ingame');
+        }
+      })
+      .catch(() => {
+        setIsLoading(false);
+        return () =>
+          toast({
+            title: '通信に失敗しました。',
+            description:
+              '申し訳ありませんが、時間をおいてもう一度お試しください。',
+            status: 'error',
+            isClosable: true,
+          });
+      });
+  };
+
+  const handleStart = () => {
+    setIsLoading(true);
+    // TODO: ユーザーがホストなのか確認したい
+    if (ws.readyState === 1 && image) {
+      uploadImage(image).then((res) => {
+        if (res) {
+          connectImageNameToRoomId({ fileName: res });
+        } else {
+          setIsLoading(false);
+          toast({
+            title: '画像のアップロードに失敗しました。',
+            description:
+              '申し訳ありませんが、時間をおいてもう一度お試しください。',
+            status: 'error',
+            isClosable: true,
+          });
+        }
+      });
+    }
+  };
+
+  return { players, setImage, handleStart, isLoading };
 };
