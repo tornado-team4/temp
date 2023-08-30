@@ -38,7 +38,7 @@ export const useJoinRoomArea = () => {
         body: JSON.stringify({ name, avatar_url: avatarUrl }),
       },
     )
-      .then(() => router.replace('/'))
+      .then(() => router.replace('/lobby'))
       .catch(() =>
         toast({
           title: '通信に失敗しました。',
@@ -65,7 +65,7 @@ export const useJoinRoomArea = () => {
         body: JSON.stringify({ name, avatar_url: avatarUrl, room_id: roomId }),
       },
     )
-      .then(() => router.replace('/'))
+      .then(() => router.replace('/lobby'))
       .catch(() =>
         toast({
           title: '通信に失敗しました。',
