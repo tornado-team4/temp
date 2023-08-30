@@ -9,8 +9,13 @@ import logo from 'public/logo.png';
 import { PlayerList } from '@/app/lobby/components/PlayerList';
 import { PuzzleMaker } from '@/app/lobby/components/PuzzleMaker';
 import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWithRightIcon';
+import { useLobbyPage } from '@/app/lobby/hooks/useLobbyPage';
 
 export const LobbyPage = () => {
+  // 一旦roomIDを直で記載
+  const roomId = 'TBOvYdRCOpVK3aW3qMLp';
+  const { players } = useLobbyPage({ roomId: roomId });
+
   return (
     <Box
       w="full"
@@ -34,7 +39,7 @@ export const LobbyPage = () => {
           <VSpacer size={12} />
           <Stack direction={{ base: 'column', md: 'row' }} w="full">
             <Box w={{ base: 'full', md: '50%' }}>
-              <PlayerList list={[]} />
+              <PlayerList list={players} />
             </Box>
             <Box w={{ base: 'full', md: '50%' }}>
               <VStack h="full" w="full">
