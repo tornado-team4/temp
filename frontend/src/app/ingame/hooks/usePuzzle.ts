@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import { PuzzlePiece } from '../types/PuzzlePiece';
-import { addDoc, collection, onSnapshot, query } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDocs,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+  writeBatch,
+} from 'firebase/firestore';
 import { db } from '@/libs/firebase/firebase';
+
+type ChangedPiece = {
+  type: string;
+  data: PuzzlePiece;
+};
 
 export const usePuzzle = () => {
   // パズルのピースを一元管理するstate
   const [puzzlePieces, setPuzzlePieces] = useState<PuzzlePiece[]>([]);
 
   // ユーザーのピースを管理する
-  const [userPieces, setUserPieces] = useState<PuzzlePiece[]>([]);
+  const [myPieces, setMyPieces] = useState<PuzzlePiece[]>([]);
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -21,21 +35,36 @@ export const usePuzzle = () => {
     console.log(totalElapsedTime);
   };
 
-  // firebaseのパズルのピースを更新する
-  const updatePieces = async (index: number) => {
+  // ピースを嵌めた時firebaseを更新する
+  const updatePiecesComplete = async (index: number) => {
     // if (puzzlePieces.length === 0) return;
+    const q = query(piecesRef, where('id', '==', index));
 
-    await addDoc(piecesRef, {
-      id: index,
-      isCompleted: true,
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (data) => {
+      await updateDoc(data.ref, {
+        isCompleted: true,
+      });
     });
   };
 
+  // ピースを嵌めた時の処理
   const handlePieceComplete = async (index: number) => {
-    setPuzzlePieces((prev) => [...prev, { id: index, isCompleted: true }]);
-    await updatePieces(index);
+    // setPuzzlePieces((prev) => [...prev, { id: index, isCompleted: true }]);
+    await updatePiecesComplete(index);
   };
 
+  const updateClickSendMemory = async (randomIndexes: number[]) => {
+    const batch = writeBatch(db);
+    await randomIndexes.map((index) => {
+      batch.set(doc(piecesRef), {
+        id: index,
+        isCompleted: false,
+        isUserHaving: true,
+      });
+    });
+    await batch.commit();
+  };
   const handleClickSendMemory = () => {
     const input = inputRef.current;
     console.log(input?.value);
@@ -53,12 +82,33 @@ export const usePuzzle = () => {
     // 0~3番目の要素を取得
     randomIndexes.splice(4);
 
-    console.log(randomIndexes);
-    console.log(puzzlePieces);
-
-    setUserPieces(
-      randomIndexes.map((index) => ({ id: index, isCompleted: true })),
+    setMyPieces(
+      randomIndexes.map((index) => ({
+        id: index,
+        isCompleted: false,
+        isUserHaving: true,
+      })),
     );
+    updateClickSendMemory(randomIndexes);
+  };
+
+  // firebaseのパズルのピースが更新された時にstateを更新する
+  const updatePuzzlePieces = (changes: ChangedPiece[]) => {
+    setPuzzlePieces((prev) => {
+      const newPuzzlePieces = [...prev];
+
+      changes.forEach((piece) => {
+        if (piece.type === 'added') {
+          newPuzzlePieces.push(piece.data);
+        } else if (piece.type === 'modified') {
+          const index = newPuzzlePieces.findIndex(
+            (p) => p.id === piece.data.id,
+          );
+          newPuzzlePieces[index] = piece.data;
+        }
+      });
+      return newPuzzlePieces;
+    });
   };
 
   // firebaseのパズルのピースを監視する
@@ -66,21 +116,25 @@ export const usePuzzle = () => {
     const q = query(piecesRef);
 
     return onSnapshot(q, (querySnapshot) => {
-      const pieces: PuzzlePiece[] = [];
+      const pieces: ChangedPiece[] = [];
       querySnapshot.docChanges().forEach((change) => {
         const data = change.doc.data();
         pieces.push({
-          id: data.id,
-          isCompleted: data.isCompleted,
+          type: change.type,
+          data: {
+            id: data.id,
+            isCompleted: data.isCompleted,
+            isUserHaving: data.isUserHaving,
+          },
         });
       });
-      setPuzzlePieces((prev) => [...prev, ...pieces]);
+      updatePuzzlePieces(pieces);
     });
   };
 
   return {
     puzzlePieces,
-    userPieces,
+    myPieces,
     inputRef,
     handleTimeout,
     handlePieceComplete,

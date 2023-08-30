@@ -14,7 +14,7 @@ import { usePuzzle } from '../../hooks/usePuzzle';
 export function ClientComponent() {
   const {
     puzzlePieces,
-    userPieces,
+    myPieces,
     inputRef,
     handleTimeout,
     handlePieceComplete,
@@ -62,7 +62,7 @@ export function ClientComponent() {
             onClick={handleClickSendMemory}
           />
           <PuzzlePieceContainer
-            userPieces={userPieces}
+            userPieces={myPieces}
             imageInfo={picture}
             handleComplete={handlePieceComplete}
           />
