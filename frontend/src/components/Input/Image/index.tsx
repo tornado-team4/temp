@@ -19,10 +19,6 @@ type Props = {
   id: string;
   onChangeImage: ChangeEventHandler<HTMLInputElement>;
   label?: string;
-  minH?: number;
-  minW?: number;
-  maxH?: number;
-  maxW?: number;
 };
 
 export const InputImage = ({
