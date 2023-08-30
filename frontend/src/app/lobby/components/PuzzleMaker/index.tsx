@@ -1,11 +1,15 @@
 'use client';
 
+import { useState } from 'react';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { InputImage } from '@/components/Input/Image';
 import { Box, VStack, Text } from '@chakra-ui/react';
-import { ChangeEvent, useState } from 'react';
 
-export const PuzzleMaker = () => {
-  const [image, setImage] = useState<File | null>(null); // eslint-disable-line @typescript-eslint/no-unused-vars
+type Props = {
+  setImage: Dispatch<SetStateAction<File | null>>;
+};
+
+export const PuzzleMaker = ({ setImage }: Props) => {
   const [previewImageUrl, setPreviewImageUrl] = useState('');
 
   const handleImage = (event: ChangeEvent<HTMLInputElement>) => {
