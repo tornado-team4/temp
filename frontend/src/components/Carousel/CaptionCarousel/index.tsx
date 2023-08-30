@@ -39,11 +39,19 @@ export function CaptionCarousel({ cards, textColor = 'black' }: Props) {
       >
         {cards.map((card) => (
           <SwiperSlide key={card.title}>
-            <Box h="xs">
+            <Box minH="xs">
               <VStack gap={2}>
                 <Image boxSize="150px" objectFit="cover" src={card.image} />
-                <Text color={textColor}>{card.title}</Text>
-                <Text color={textColor}>{card.text}</Text>
+                <Text
+                  color={textColor}
+                  fontWeight="bold"
+                  fontSize={{ base: 'md', sm: 'lg' }}
+                >
+                  {card.title}
+                </Text>
+                <Text color={textColor} fontSize={{ base: 'md', sm: 'lg' }}>
+                  {card.text}
+                </Text>
               </VStack>
             </Box>
           </SwiperSlide>
