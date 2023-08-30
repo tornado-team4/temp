@@ -53,14 +53,14 @@ export const usePuzzle = () => {
 
     return onSnapshot(q, (querySnapshot) => {
       const pieces: PuzzlePiece[] = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
+      querySnapshot.docChanges().forEach((change) => {
+        const data = change.doc.data();
         pieces.push({
           id: data.id,
           isCompleted: data.isCompleted,
         });
       });
-      setPuzzlePieces(pieces);
+      setPuzzlePieces((prev) => [...prev, ...pieces]);
     });
   };
 

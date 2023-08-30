@@ -23,7 +23,7 @@ export function ClientComponent() {
   } = usePuzzle();
 
   const picture: ImageInfo = {
-    url: '/dummy/hd2.jpg',
+    url: '/dummy/dummy2.jpg',
     width: 1280,
     height: 720,
   };
