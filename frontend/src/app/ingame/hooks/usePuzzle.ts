@@ -37,11 +37,17 @@ export const usePuzzle = () => {
     const input = inputRef.current;
     console.log(input?.value);
 
-    if (puzzlePieces.length === 24) return;
-    // 0~23からランダムに4つ選ぶ
-    const randomIndexes = [...Array(4)].map(() =>
-      Math.floor(Math.random() * 24),
-    );
+    if (puzzlePieces.length > 20) return;
+    // 0~23からランダムに4つ選ぶ、ただしpuzzlePicesに存在するものは除く
+    const randomIndexes = [...Array(4)].map(() => {
+      while (true) {
+        const random = Math.floor(Math.random() * 24);
+        if (puzzlePieces.find((piece) => piece.id == random)) continue;
+        return random;
+      }
+    });
+    console.log(randomIndexes);
+    console.log(puzzlePieces);
 
     setUserPieces(
       randomIndexes.map((index) => ({ id: index, isCompleted: true })),
