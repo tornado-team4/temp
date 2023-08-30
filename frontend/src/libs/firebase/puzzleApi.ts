@@ -1,4 +1,4 @@
-// import { storage } from '@/libs/firebase/firebase';
+// import { db } from '@/libs/firebase/firebase';
 
 export const puzzleApi = () => {
   const updatePieces = () => {};
