@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { PuzzlePiece } from '../types/PuzzlePiece';
+import { addDoc, collection, onSnapshot, query } from 'firebase/firestore';
+import { db } from '@/libs/firebase/firebase';
 
 export const usePuzzle = () => {
   // パズルのピースを一元管理するstate
@@ -10,12 +12,26 @@ export const usePuzzle = () => {
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+  const piecesRef = collection(db, 'puzzlePieces');
+
   const handleTimeout = (totalElapsedTime: number) => {
     console.log(totalElapsedTime);
   };
 
-  const handlePieceComplete = (index: number) =>
+  // firebaseのパズルのピースを更新する
+  const updatePieces = async (index: number) => {
+    // if (puzzlePieces.length === 0) return;
+
+    await addDoc(piecesRef, {
+      id: index,
+      isCompleted: true,
+    });
+  };
+
+  const handlePieceComplete = async (index: number) => {
     setPuzzlePieces((prev) => [...prev, { id: index, isCompleted: true }]);
+    await updatePieces(index);
+  };
 
   const handleClickSendMemory = () => {
     const input = inputRef.current;
@@ -31,6 +47,23 @@ export const usePuzzle = () => {
     );
   };
 
+  // firebaseのパズルのピースを監視する
+  const createListener = () => {
+    const q = query(piecesRef);
+
+    return onSnapshot(q, (querySnapshot) => {
+      const pieces: PuzzlePiece[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        pieces.push({
+          id: data.id,
+          isCompleted: data.isCompleted,
+        });
+      });
+      setPuzzlePieces(pieces);
+    });
+  };
+
   return {
     puzzlePieces,
     userPieces,
@@ -38,5 +71,6 @@ export const usePuzzle = () => {
     handleTimeout,
     handlePieceComplete,
     handleClickSendMemory,
+    createListener,
   };
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PuzzleContainer } from './PuzzleContainer';
 import { InputMemoryContainer } from './InputMemoryContainer';
 import { Box, Grid } from '@chakra-ui/react';
@@ -8,6 +8,7 @@ import { PuzzlePieceContainer } from './PuzzlePieceContainer';
 import bg_img from '/public/bg_img.jpeg';
 import { ImageInfo } from '../../types/ImageInfo';
 import { usePuzzle } from '../../hooks/usePuzzle';
+
 // import { set } from 'firebase/database';
 
 export function ClientComponent() {
@@ -18,6 +19,7 @@ export function ClientComponent() {
     handleTimeout,
     handlePieceComplete,
     handleClickSendMemory,
+    createListener,
   } = usePuzzle();
 
   const picture: ImageInfo = {
@@ -25,6 +27,12 @@ export function ClientComponent() {
     width: 1280,
     height: 720,
   };
+
+  useEffect(() => {
+    const listener = createListener();
+
+    return () => listener();
+  }, []);
 
   return (
     <>
