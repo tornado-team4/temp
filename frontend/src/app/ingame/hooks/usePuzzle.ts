@@ -37,6 +37,7 @@ export const usePuzzle = () => {
     const input = inputRef.current;
     console.log(input?.value);
 
+    if (puzzlePieces.length === 24) return;
     // 0~23からランダムに4つ選ぶ
     const randomIndexes = [...Array(4)].map(() =>
       Math.floor(Math.random() * 24),
