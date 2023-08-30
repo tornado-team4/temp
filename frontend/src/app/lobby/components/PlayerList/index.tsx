@@ -19,7 +19,13 @@ export const PlayerList = ({ list }: Props) => {
   const playerNum = list.length;
 
   return (
-    <Box w="full" borderRadius={10} py={8} px={28} bg="rgba(101,218,255,0.5)">
+    <Box
+      w="full"
+      borderRadius={10}
+      py={8}
+      px={{ base: 10, sm: 12 }}
+      bg="rgba(101,218,255,0.5)"
+    >
       <VStack spacing={6} textAlign="center">
         <Text
           color="white"
