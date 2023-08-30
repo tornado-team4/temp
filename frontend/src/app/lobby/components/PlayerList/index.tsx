@@ -30,16 +30,22 @@ export const PlayerList = ({ list }: Props) => {
         </Text>
         <Box w="full" h="lg" overflow="scroll">
           <VStack spacing={3} w="full">
-            {list.map((user) => (
-              <Card key={user.id} bg="white" w="full">
-                <CardBody>
-                  <HStack spacing={4}>
-                    <Avatar size="md" src={user.avatarUrl} />
-                    <Text>{user.name}</Text>
-                  </HStack>
-                </CardBody>
-              </Card>
-            ))}
+            {list.length > 0 ? (
+              list.map((user) => (
+                <Card key={user.id} bg="white" w="full">
+                  <CardBody>
+                    <HStack spacing={4}>
+                      <Avatar size="md" src={user.avatarUrl} />
+                      <Text>{user.name}</Text>
+                    </HStack>
+                  </CardBody>
+                </Card>
+              ))
+            ) : (
+              <Text fontSize="2xl" fontWeight="bold" color="white">
+                参加者がいません
+              </Text>
+            )}
           </VStack>
         </Box>
       </VStack>
