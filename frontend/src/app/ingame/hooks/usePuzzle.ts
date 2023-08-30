@@ -12,7 +12,10 @@ export const usePuzzle = () => {
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const piecesRef = collection(db, 'puzzlePieces');
+  // TODO: roomIdをどこかから取得する
+  const roomId = '9brRzPHU7qKushbl2DUl';
+
+  const piecesRef = collection(db, 'room', roomId, 'puzzlePieces');
 
   const handleTimeout = (totalElapsedTime: number) => {
     console.log(totalElapsedTime);
@@ -38,14 +41,18 @@ export const usePuzzle = () => {
     console.log(input?.value);
 
     if (puzzlePieces.length > 20) return;
-    // 0~23からランダムに4つ選ぶ、ただしpuzzlePicesに存在するものは除く
-    const randomIndexes = [...Array(4)].map(() => {
-      while (true) {
-        const random = Math.floor(Math.random() * 24);
-        if (puzzlePieces.find((piece) => piece.id == random)) continue;
-        return random;
-      }
-    });
+
+    // 0~23までの配列を作成
+    const array = [...Array(24)].map((_, i) => i);
+    // arrayからpuzzlePiecesのidを除外
+    const filteredArray = array.filter(
+      (item) => !puzzlePieces.find((p) => p.id === item),
+    );
+    // ランダムに並び替え
+    const randomIndexes = filteredArray.sort(() => Math.random() - 0.5);
+    // 0~3番目の要素を取得
+    randomIndexes.splice(4);
+
     console.log(randomIndexes);
     console.log(puzzlePieces);
 
