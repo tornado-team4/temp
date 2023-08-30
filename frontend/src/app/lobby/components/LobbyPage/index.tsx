@@ -14,7 +14,7 @@ import { useLobbyPage } from '@/app/lobby/hooks/useLobbyPage';
 export const LobbyPage = () => {
   // 一旦roomIDを直で記載
   const roomId = 'TBOvYdRCOpVK3aW3qMLp';
-  const { players, setImage, handleStart, isLoading } = useLobbyPage({
+  const { players, setImage, handleStart, isLoading, copylink } = useLobbyPage({
     roomId: roomId,
   });
 
@@ -55,6 +55,7 @@ export const LobbyPage = () => {
                     color={'#56C1FC'}
                     bgColor={'white'}
                     isDisabled={false}
+                    onClick={copylink}
                   />
                   <OutlineButtonWithRightIcon
                     height="70px"
