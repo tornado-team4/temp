@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { uploadImage } from '@/libs/firebase/uploadImage';
 import { BASE_URL } from '@/utils/baseUrl';
+import { WS_URL } from '@/utils/baseUrl';
 import { useToast } from '@chakra-ui/react';
 
 type Props = {
@@ -16,9 +17,8 @@ export const useLobbyPage = ({ roomId }: Props) => {
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const id = roomId;
-  const domain = new URL(process.env.NEXT_PUBLIC_BACKEND_URL ?? '');
-  const host = domain.host;
-  const url = `ws://${host}/ws/${id}`;
+
+  const url = `${WS_URL}/ws/${id}`;
   const ws = new WebSocket(url);
 
   useEffect(() => {
@@ -26,25 +26,14 @@ export const useLobbyPage = ({ roomId }: Props) => {
       // 参加者の通知を検知してリストを更新する際のwsメッセージ
       ws.send('connect');
     };
+
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
       if (typeof data === 'string' && data === 'start') {
-        console.log('ゲームの開始を検知');
+        router.replace('/ingame');
       } else {
-        const participantList: User[] = [];
-        data.map(
-          (
-            d: any, // eslint-disable-line @typescript-eslint/no-explicit-any
-          ) =>
-            participantList.push({
-              id: d.id,
-              name: d.name,
-              avatarUrl: d.avatar_url,
-              role: d.role,
-            }),
-        );
-        setPlayers(participantList);
+        setPlayers(data);
       }
     };
     ws.onclose = () => {};
