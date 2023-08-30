@@ -25,6 +25,10 @@ export const InputImage = ({
   id,
   onChangeImage,
   label,
+  minH = 96,
+  minW = 96,
+  maxW = 96,
+  maxH = 96,
   ...props
 }: Props & ImageProps) => {
   const [isLoaded, setIsLoaded] = useState(!props.src);
@@ -40,10 +44,10 @@ export const InputImage = ({
           <Image
             w="full"
             h="full"
-            minH={80}
-            minW={80}
-            maxH={96}
-            maxW={96}
+            minH={minH}
+            minW={minW}
+            maxH={maxH}
+            maxW={maxW}
             alt={props.alt}
             onLoad={onLoad}
             onError={onLoad}
@@ -52,8 +56,8 @@ export const InputImage = ({
               <Center
                 w="full"
                 h="full"
-                minW={80}
-                minH={80}
+                minW={minW}
+                minH={minH}
                 bg="white"
                 p={10}
                 border={'1px solid'}
