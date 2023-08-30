@@ -114,5 +114,16 @@ export const useLobbyPage = ({ roomId }: Props) => {
     }
   };
 
-  return { players, setImage, handleStart, isLoading };
+  const copylink = () => {
+    const path = window.location.origin;
+    const link = `${path}/top/${roomId}`;
+    navigator.clipboard.writeText(link);
+    toast({
+      title: '招待リンクをコピーしました。',
+      status: 'success',
+      isClosable: true,
+    });
+  };
+
+  return { players, setImage, handleStart, isLoading, copylink };
 };
