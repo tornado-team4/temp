@@ -1,13 +1,10 @@
 'use client';
 
-import { Link } from '@chakra-ui/next-js';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <>
-      <Link href="/" color="blue" _hover={{ color: 'blue.500' }}>
-        aaaa
-      </Link>
-    </>
-  );
+  const router = useRouter();
+  router.push('/top');
+
+  return <></>;
 }
