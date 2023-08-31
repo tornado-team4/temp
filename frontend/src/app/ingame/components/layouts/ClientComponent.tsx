@@ -8,10 +8,13 @@ import { PuzzlePieceContainer } from './PuzzlePieceContainer';
 import bg_img from '/public/bg_img.jpeg';
 import { ImageInfo } from '../../types/ImageInfo';
 import { usePuzzle } from '../../hooks/usePuzzle';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/userState';
 
 // import { set } from 'firebase/database';
 
 export function ClientComponent() {
+  const { id, name, roomId } = useRecoilValue(userState);
   const {
     puzzlePieces,
     myPieces,
@@ -20,7 +23,7 @@ export function ClientComponent() {
     handlePieceComplete,
     handleClickSendMemory,
     createListener,
-  } = usePuzzle();
+  } = usePuzzle({ id, name, room_id: roomId });
 
   const picture: ImageInfo = {
     url: '/dummy/dummy2.jpg',
