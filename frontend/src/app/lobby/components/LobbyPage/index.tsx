@@ -14,14 +14,12 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/userState';
 
 export const LobbyPage = () => {
-  // 一旦roomIDを直で記載
-  // const roomId = 'TBOvYdRCOpVK3aW3qMLp';
-  const roomId = useRecoilValue(userState).roomId;
+  const recoilUserState = useRecoilValue(userState);
   const { players, setImage, handleStart, isLoading, copylink } = useLobbyPage({
-    roomId: roomId,
+    roomId: recoilUserState.roomId,
   });
 
-  if (roomId === '') return <>不正なアクセス</>;
+  if (recoilUserState.roomId === '') return <>不正なアクセス</>;
 
   return (
     <Box
@@ -68,7 +66,7 @@ export const LobbyPage = () => {
                     rightIcon={<BiSolidRightArrow />}
                     color={'#56C1FC'}
                     bgColor={'white'}
-                    isDisabled={false}
+                    isDisabled={recoilUserState.role === 'host' ? false : true}
                     isLoading={isLoading}
                     onClick={handleStart}
                   />
