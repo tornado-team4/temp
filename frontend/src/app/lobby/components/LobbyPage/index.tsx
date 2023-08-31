@@ -15,11 +15,17 @@ import { userState } from '@/store/userState';
 
 export const LobbyPage = () => {
   const recoilUserState = useRecoilValue(userState);
-  const { players, setImage, handleStart, isLoading, copylink } = useLobbyPage({
-    roomId: recoilUserState.roomId,
-  });
+  const { players, image, setImage, handleStart, isLoading, copylink } =
+    useLobbyPage({
+      roomId: recoilUserState.roomId,
+    });
 
   if (recoilUserState.roomId === '') return <>不正なアクセス</>;
+
+  const validateStart = () => {
+    // 開始を押せるのは、ホストかつ画像が設定されている場合
+    return !(recoilUserState.role === 'host' && image);
+  };
 
   return (
     <Box
@@ -51,6 +57,11 @@ export const LobbyPage = () => {
                 <PuzzleMaker
                   isHost={recoilUserState.role === 'host'}
                   setImage={setImage}
+                  label={
+                    recoilUserState.role === 'host'
+                      ? 'パズルを選択'
+                      : 'ホストがパズルを設定してください'
+                  }
                 />
                 <VSpacer size={8} />
                 <HStack w="full">
@@ -69,7 +80,7 @@ export const LobbyPage = () => {
                     rightIcon={<BiSolidRightArrow />}
                     color={'#56C1FC'}
                     bgColor={'white'}
-                    isDisabled={recoilUserState.role === 'host' ? false : true}
+                    isDisabled={validateStart()}
                     isLoading={isLoading}
                     onClick={handleStart}
                   />

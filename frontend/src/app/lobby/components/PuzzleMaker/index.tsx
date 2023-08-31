@@ -8,9 +8,10 @@ import { Box, VStack, Text } from '@chakra-ui/react';
 type Props = {
   isHost: boolean;
   setImage: Dispatch<SetStateAction<File | null>>;
+  label: string;
 };
 
-export const PuzzleMaker = ({ isHost, setImage }: Props) => {
+export const PuzzleMaker = ({ isHost, setImage, label }: Props) => {
   const [previewImageUrl, setPreviewImageUrl] = useState('');
 
   const handleImage = (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +36,7 @@ export const PuzzleMaker = ({ isHost, setImage }: Props) => {
         </Text>
         <InputImage
           id={'puzzle'}
-          label="新規パズル作成"
+          label={label}
           src={previewImageUrl}
           onChangeImage={handleImage}
           isChange={isHost}

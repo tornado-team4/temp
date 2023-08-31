@@ -118,5 +118,5 @@ export const useLobbyPage = ({ roomId = 'RdjowLXkiimSmNoanCxy' }: Props) => {
     });
   };
 
-  return { players, setImage, handleStart, isLoading, copylink };
+  return { players, image, setImage, handleStart, isLoading, copylink };
 };
