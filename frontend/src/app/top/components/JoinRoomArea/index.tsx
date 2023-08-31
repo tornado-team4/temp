@@ -96,8 +96,7 @@ export function JoinRoomArea({ roomId }: Props) {
               <HStack>
                 <VSpacer size={12} />
                 <Text>アバターアイコンの著作権：</Text>
-                <Text>Freepik</Text>
-                {/* FIXME: なぜか遷移すると 403 が返ってくる, リンク先の問題のような気が… */}
+                {/* NOTE: ローカルだと 403 が返ってくるが、デプロイ環境では正常に動く */}
                 <Link href={url} isExternal>
                   Freepik
                 </Link>
