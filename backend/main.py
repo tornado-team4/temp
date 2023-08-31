@@ -60,6 +60,11 @@ class RoomParams(BaseModel):
     room_id: Union[str, None] = None
 
 
+class FileParams(BaseModel):
+    room_id: str
+    url: str
+
+
 # --------------------
 
 # エンドポイント
@@ -156,8 +161,10 @@ def post_join_room(params: RoomParams):
     summary="Storage に保存したファイル名を room id と紐付けるためのエンドポイント",
     description="Storage に保存したファイル名を room id と紐付けるためのエンドポイント",
 )
-def post_upload_image(room_id: str, file_name: str):
-    res = upload_image.upload_image(db, room_id, file_name)
+def post_upload_image(FileParams: FileParams):
+    room_id = FileParams.room_id
+    url = FileParams.url
+    res = upload_image.upload_image(db, room_id, url)
     return res
 
 
