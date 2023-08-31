@@ -170,8 +170,12 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
           img.src = docPic.data().url;
 
           img.onload = () => {
-            const imgWidth = img.width;
-            const imgHeight = img.height;
+            let imgWidth = 1280;
+            let imgHeight = img.height * (imgWidth / img.width);
+            if (imgHeight > 720) {
+              imgHeight = 720;
+              imgWidth = img.width * (imgHeight / img.height);
+            }
             const url = docPic.data().url;
             pictures.push({
               url: url,
