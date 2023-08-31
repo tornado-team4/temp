@@ -51,7 +51,7 @@ export const useJoinRoomArea = () => {
             avatarUrl: '',
           });
         });
-        router.replace('/');
+        router.replace('/lobby');
       })
       .catch(() =>
         toast({
@@ -89,7 +89,7 @@ export const useJoinRoomArea = () => {
             avatarUrl: '',
           });
         });
-        router.replace('/');
+        router.replace('/lobby');
       })
       .catch(() =>
         toast({

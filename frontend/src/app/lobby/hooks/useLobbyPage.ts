@@ -2,7 +2,7 @@ import { User } from '@/types/User';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { uploadImage } from '@/libs/firebase/uploadImage';
-import { FE_URL } from '@/utils/baseUrl';
+import { BASE_URL, FE_URL } from '@/utils/baseUrl';
 import { useToast } from '@chakra-ui/react';
 import {
   onSnapshot,
@@ -14,6 +14,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/libs/firebase/firebase';
 import { fetchImageUrl } from '@/libs/firebase/fetchImageUrl';
+import axios from 'axios';
 
 type GameObjects = {
   Image: string;
@@ -33,7 +34,7 @@ export const useLobbyPage = ({ roomId }: Props) => {
   );
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const id = 'TBOvYdRCOpVK3aW3qMLp';
+  const id = roomId;
 
   const userRef = collection(db, 'room', id, 'users');
   const gameObjectRef = collection(db, 'room', id, 'gameObjects');
@@ -100,7 +101,10 @@ export const useLobbyPage = ({ roomId }: Props) => {
 
       if (res) {
         const result = await fetchImageUrl(res);
-        console.log(result);
+        axios.post(`${BASE_URL}/api/v1/upload-image`, {
+          room_id: roomId,
+          url: result,
+        });
       }
     }
   };

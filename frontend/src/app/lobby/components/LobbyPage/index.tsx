@@ -20,6 +20,7 @@ export const LobbyPage = () => {
   const { players, setImage, handleStart, isLoading, copylink } = useLobbyPage({
     roomId: roomId,
   });
+
   if (roomId === '') return <>不正なアクセス</>;
 
   return (
