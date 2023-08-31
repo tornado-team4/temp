@@ -5,3 +5,4 @@ httpx
 firebase_admin
 google-cloud-firestore
 python-dotenv
+websockets

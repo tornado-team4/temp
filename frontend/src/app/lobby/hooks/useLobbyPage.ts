@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { uploadImage } from '@/libs/firebase/uploadImage';
 import { BASE_URL } from '@/utils/baseUrl';
 import { WS_URL } from '@/utils/baseUrl';
+import { FE_URL } from '@/utils/baseUrl';
 import { useToast } from '@chakra-ui/react';
 
 type Props = {
@@ -106,7 +107,7 @@ export const useLobbyPage = ({ roomId }: Props) => {
   };
 
   const copylink = () => {
-    const link = `${BASE_URL}/top/${roomId}`;
+    const link = `${FE_URL}/top/${roomId}`;
     navigator.clipboard.writeText(link);
     toast({
       title: '招待リンクをコピーしました。',
