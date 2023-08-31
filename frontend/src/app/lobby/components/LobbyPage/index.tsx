@@ -24,7 +24,7 @@ export const LobbyPage = () => {
 
   const validateStart = () => {
     // 開始を押せるのは、ホストかつ画像が設定されている場合
-    return !(recoilUserState.role === 'host' && image);
+    return !(recoilUserState.role === 'host' && image && players.length == 6);
   };
 
   return (
