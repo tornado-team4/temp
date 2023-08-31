@@ -8,5 +8,6 @@ export const userState = atom<User>({
     name: '',
     avatarUrl: '',
     role: '',
+    roomId: '',
   },
 });
