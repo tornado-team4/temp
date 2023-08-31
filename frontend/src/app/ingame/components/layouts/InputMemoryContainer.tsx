@@ -25,7 +25,7 @@ export function InputMemoryContainer({
   const [input, setInput] = useState('');
 
   return (
-    <Center height={100} bgColor="#78CDFD">
+    <Center height={100} bgColor="#78CDFD" p={4}>
       <Flex gap={5}>
         <InputGroup width={500}>
           <InputLeftElement>
