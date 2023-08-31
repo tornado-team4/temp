@@ -48,7 +48,10 @@ export const LobbyPage = () => {
             </Box>
             <Box w={{ base: 'full', md: '50%' }}>
               <VStack h="full" w="full">
-                <PuzzleMaker setImage={setImage} />
+                <PuzzleMaker
+                  isHost={recoilUserState.role === 'host'}
+                  setImage={setImage}
+                />
                 <VSpacer size={8} />
                 <HStack w="full">
                   <OutlineButtonWithRightIcon
