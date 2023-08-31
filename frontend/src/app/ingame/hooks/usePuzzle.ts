@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PuzzlePiece } from '../types/PuzzlePiece';
 import {
+  addDoc,
   collection,
   doc,
   getDocs,
@@ -19,10 +20,12 @@ type ChangedPiece = {
 };
 
 type Props = {
+  id: string;
+  name: string;
   room_id: string;
 };
 
-export const usePuzzle = ({ room_id }: Props) => {
+export const usePuzzle = ({ id, name, room_id }: Props) => {
   // パズルのピースを一元管理するstate
   const [puzzlePieces, setPuzzlePieces] = useState<PuzzlePiece[]>([]);
 
@@ -35,6 +38,7 @@ export const usePuzzle = ({ room_id }: Props) => {
   const roomId = room_id !== '' ? room_id : 'RdjowLXkiimSmNoanCxy';
 
   const piecesRef = collection(db, 'room', roomId, 'puzzlePieces');
+  const commentsRef = collection(db, 'room', roomId, 'comments');
 
   const handleTimeout = (totalElapsedTime: number) => {
     console.log(totalElapsedTime);
@@ -70,10 +74,9 @@ export const usePuzzle = ({ room_id }: Props) => {
     });
     await batch.commit();
   };
-  const handleClickSendMemory = () => {
-    const input = inputRef.current;
-    console.log(input?.value);
 
+  // 送信ボタンを押した時にピースを選択する
+  const choosePieces = () => {
     if (puzzlePieces.length > 20) return;
 
     // 0~23までの配列を作成
@@ -95,6 +98,21 @@ export const usePuzzle = ({ room_id }: Props) => {
       })),
     );
     updateClickSendMemory(randomIndexes);
+  };
+  // 送信ボタン押した時に思い出を送信する
+  const sendMemory = () => {
+    const input = inputRef.current;
+    addDoc(commentsRef, {
+      gameProgress: 1,
+      text: input?.value,
+      userId: id,
+      userName: name,
+    });
+  };
+  // 送信ボタンを押した時の処理
+  const handleClickSendMemory = () => {
+    choosePieces();
+    sendMemory();
   };
 
   // firebaseのパズルのピースが更新された時にstateを更新する

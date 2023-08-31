@@ -14,7 +14,7 @@ import { userState } from '@/store/userState';
 // import { set } from 'firebase/database';
 
 export function ClientComponent() {
-  const roomId = useRecoilValue(userState).roomId;
+  const { id, name, roomId } = useRecoilValue(userState);
   const {
     puzzlePieces,
     myPieces,
@@ -23,7 +23,7 @@ export function ClientComponent() {
     handlePieceComplete,
     handleClickSendMemory,
     createListener,
-  } = usePuzzle({ room_id: roomId });
+  } = usePuzzle({ id, name, room_id: roomId });
 
   const picture: ImageInfo = {
     url: '/dummy/dummy2.jpg',
