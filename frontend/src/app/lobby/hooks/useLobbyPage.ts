@@ -24,11 +24,13 @@ export const useLobbyPage = ({ roomId }: Props) => {
   useEffect(() => {
     ws.onopen = () => {
       // 参加者の通知を検知してリストを更新する際のwsメッセージ
+      console.log('ws.onopen');
       ws.send('connect');
     };
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      console.log('ws.onmessage', data);
 
       if (typeof data === 'string' && data === 'start') {
         router.replace('/ingame');
@@ -104,8 +106,7 @@ export const useLobbyPage = ({ roomId }: Props) => {
   };
 
   const copylink = () => {
-    const path = window.location.origin;
-    const link = `${path}/top/${roomId}`;
+    const link = `${BASE_URL}/top/${roomId}`;
     navigator.clipboard.writeText(link);
     toast({
       title: '招待リンクをコピーしました。',
