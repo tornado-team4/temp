@@ -19,12 +19,14 @@ type Props = {
   id: string;
   onChangeImage: ChangeEventHandler<HTMLInputElement>;
   label?: string;
+  isChange: boolean;
 };
 
 export const InputImage = ({
   id,
   onChangeImage,
   label,
+  isChange,
   minH = 96,
   minW = 96,
   maxW = 96,
@@ -71,13 +73,15 @@ export const InputImage = ({
             {...props}
           />
         </Skeleton>
-        <Input
-          id={id}
-          type="file"
-          display="none"
-          accept="image/*"
-          onChange={onChangeImage}
-        />
+        {isChange && (
+          <Input
+            id={id}
+            type="file"
+            display="none"
+            accept="image/*"
+            onChange={onChangeImage}
+          />
+        )}
       </FormLabel>
     </Center>
   );

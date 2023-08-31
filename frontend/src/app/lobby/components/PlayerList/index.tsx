@@ -41,7 +41,7 @@ export const PlayerList = ({ list }: Props) => {
                 <Card key={user.name} bg="white" w="full">
                   <CardBody>
                     <HStack spacing={4}>
-                      <Avatar size="md" src={user.avatarUrl} />
+                      <Avatar size="md" src={user.avatar} />
                       <Text>{user.name}</Text>
                     </HStack>
                   </CardBody>

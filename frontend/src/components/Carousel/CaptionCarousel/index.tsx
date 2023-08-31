@@ -41,7 +41,12 @@ export function CaptionCarousel({ cards, textColor = 'black' }: Props) {
           <SwiperSlide key={card.title}>
             <Box minH="xs">
               <VStack gap={2}>
-                <Image boxSize="150px" objectFit="cover" src={card.image} />
+                <Image
+                  alt="image-of-how-to-play"
+                  boxSize="150px"
+                  objectFit="cover"
+                  src={card.image}
+                />
                 <Text
                   color={textColor}
                   fontWeight="bold"

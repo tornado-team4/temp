@@ -82,6 +82,7 @@ export const useLobbyPage = ({ roomId = 'RdjowLXkiimSmNoanCxy' }: Props) => {
       unsubscribeUser();
       unsubscribeGameObject();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleStart = async () => {
@@ -118,5 +119,5 @@ export const useLobbyPage = ({ roomId = 'RdjowLXkiimSmNoanCxy' }: Props) => {
     });
   };
 
-  return { players, setImage, handleStart, isLoading, copylink };
+  return { players, image, setImage, handleStart, isLoading, copylink };
 };

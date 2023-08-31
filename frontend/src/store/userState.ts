@@ -10,7 +10,7 @@ export const userState = atom<User & Room>({
   default: {
     id: '',
     name: '',
-    avatarUrl: '',
+    avatar: '',
     role: '',
     roomId: '',
   },
