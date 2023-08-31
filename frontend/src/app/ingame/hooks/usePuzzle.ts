@@ -11,8 +11,6 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import { db } from '@/libs/firebase/firebase';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@/store/userState';
 
 type ChangedPiece = {
   type: string;
@@ -20,8 +18,6 @@ type ChangedPiece = {
 };
 
 export const usePuzzle = () => {
-  const recoilData = useRecoilValue(userState);
-
   // パズルのピースを一元管理するstate
   const [puzzlePieces, setPuzzlePieces] = useState<PuzzlePiece[]>([]);
 
@@ -30,7 +26,8 @@ export const usePuzzle = () => {
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const roomId = recoilData.roomId;
+  // TODO: roomIdをどこかから取得する
+  const roomId = '9brRzPHU7qKushbl2DUl';
 
   const piecesRef = collection(db, 'room', roomId, 'puzzlePieces');
 
