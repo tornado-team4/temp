@@ -54,16 +54,30 @@ const commentList = [
   },
 ];
 
-export const ImageSizePartern1: Story = {
+export const ImageSizePattern1: Story = {
   args: {
     commentList: commentList,
     imageUrl: 'https://placehold.jp/272343/ffd803/640x400.png',
   },
 };
 
-export const ImageSizePartern2: Story = {
+export const ImageSizePattern2: Story = {
   args: {
     commentList: commentList,
     imageUrl: 'https://tools.arashichang.com/hd1080',
+  },
+};
+
+export const Small: Story = {
+  args: {
+    commentList: commentList,
+    imageUrl: 'https://tools.arashichang.com/300x200/cccccc/ffffff',
+  },
+};
+
+export const Vertical: Story = {
+  args: {
+    commentList: commentList,
+    imageUrl: 'https://tools.arashichang.com/wideskyscraper',
   },
 };

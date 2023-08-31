@@ -1,6 +1,5 @@
 'use client';
-
-import { Box, HStack, Image } from '@chakra-ui/react';
+import { Box, HStack, Image as ChakraImage } from '@chakra-ui/react';
 import bg_img from '/public/bg_img.jpeg';
 import { Comment } from '@/types/Comment';
 import { CommentList } from '@/app/complete/components/CommentList';
@@ -8,6 +7,7 @@ import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWit
 import { BsHouse } from 'react-icons/bs';
 // import { BiSolidRightArrow } from 'react-icons/bi';
 import { /*  HSpacer, */ VSpacer } from '@/components/Spacer';
+import { useEffect, useState } from 'react';
 
 type Props = {
   imageUrl: string;
@@ -23,6 +23,44 @@ export const CompletePage = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onClickEdit,
 }: Props) => {
+  const [imageSize, setImageSize] = useState({
+    width: '500px',
+    height: '500px',
+  });
+
+  const img = new Image();
+  img.src = imageUrl;
+
+  useEffect(() => {
+    img.onload = () => {
+      const tempWidth = img.width;
+      const tempHeight = img.height;
+      const ratio =
+        tempWidth < tempHeight
+          ? tempWidth / tempHeight
+          : tempHeight / tempWidth;
+
+      if (tempWidth < tempHeight) {
+        const newHeight = 600 < tempHeight ? 600 : tempHeight;
+        const newWidth = Math.round(newHeight * ratio);
+        setImageSize({
+          width: `${newWidth}px`,
+          height: `${newHeight}px`,
+        });
+      } else {
+        const newWidth = 600 < tempWidth ? 600 : tempWidth;
+        const newHeight = Math.round(newWidth * ratio);
+        setImageSize({
+          width: `${newWidth}px`,
+          height: `${newHeight}px`,
+        });
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log('imageSize', imageSize);
+
   return (
     <Box
       w="full"
@@ -35,7 +73,13 @@ export const CompletePage = ({
       {/* NOTE: 100vh とするとスクロールバーが出てしまうため微調整 */}
       <HStack minH="90vh">
         <Box h="100%" w="50%">
-          <Image margin="auto" src={imageUrl} alt="Complete Puzzle" />
+          <ChakraImage
+            h={imageSize.height}
+            w={imageSize.width}
+            margin="auto"
+            src={imageUrl}
+            alt="Complete Puzzle"
+          />
           <VSpacer size={12} />
           <HStack justifyContent="center">
             <OutlineButtonWithRightIcon
