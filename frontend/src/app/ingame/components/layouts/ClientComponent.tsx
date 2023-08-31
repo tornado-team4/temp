@@ -32,6 +32,7 @@ export function ClientComponent() {
     const listener = createListener();
 
     return () => listener();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
