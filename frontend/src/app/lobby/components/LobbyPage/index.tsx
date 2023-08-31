@@ -10,13 +10,17 @@ import { PlayerList } from '@/app/lobby/components/PlayerList';
 import { PuzzleMaker } from '@/app/lobby/components/PuzzleMaker';
 import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWithRightIcon';
 import { useLobbyPage } from '@/app/lobby/hooks/useLobbyPage';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/userState';
 
 export const LobbyPage = () => {
   // 一旦roomIDを直で記載
-  const roomId = 'TBOvYdRCOpVK3aW3qMLp';
+  // const roomId = 'TBOvYdRCOpVK3aW3qMLp';
+  const roomId = useRecoilValue(userState).roomId;
   const { players, setImage, handleStart, isLoading, copylink } = useLobbyPage({
     roomId: roomId,
   });
+  if (roomId === '') return <>不正なアクセス</>;
 
   return (
     <Box

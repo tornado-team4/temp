@@ -13,6 +13,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { db } from '@/libs/firebase/firebase';
+import { fetchImageUrl } from '@/libs/firebase/fetchImageUrl';
 
 type GameObjects = {
   Image: string;
@@ -94,7 +95,13 @@ export const useLobbyPage = ({ roomId }: Props) => {
           state: 'playing',
         });
       });
-      uploadImage(image);
+      const res = await uploadImage(image);
+      console.log(res);
+
+      if (res) {
+        const result = await fetchImageUrl(res);
+        console.log(result);
+      }
     }
   };
   const copylink = () => {
