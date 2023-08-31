@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/naming-convention */
 import useSWR from 'swr';
 import { fetcher } from '@/utils/fetcher';
 import { useState } from 'react';
