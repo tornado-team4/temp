@@ -11,6 +11,7 @@ import cruds.read.avatar_list as read_avatar_list
 import cruds.read.participant_list as read_participant_list
 import cruds.read.image_list as read_image_list
 import cruds.read.comment_list as read_comment_list
+import cruds.read.complete_image_url as read_complete_image_url
 import cruds.create.create_room as create_room
 import cruds.create.join_room as join_room
 import cruds.create.upload_image as upload_image
@@ -111,6 +112,16 @@ def get_comment_list(room_id: str):
         "allComments": fetch_data,
         "albumComments": albumComments,
     }
+
+
+@app.get(
+    "/api/v1/complete-image-url",
+    summary="そのゲームで完成したパズルの画像のURLを取得するエンドポイント",
+    description="そのゲームで完成したパズルの画像のURLを取得するエンドポイント",
+)
+def get_complete_image_url(room_id: str):
+    res = read_complete_image_url.complete_image_url(db, room_id)
+    return res
 
 
 @app.post(
