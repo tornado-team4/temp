@@ -6,8 +6,8 @@ import { Comment } from '@/types/Comment';
 import { CommentList } from '@/app/complete/components/CommentList';
 import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWithRightIcon';
 import { BsHouse } from 'react-icons/bs';
-import { BiSolidRightArrow } from 'react-icons/bi';
-import { HSpacer, VSpacer } from '@/components/Spacer';
+// import { BiSolidRightArrow } from 'react-icons/bi';
+import { /*  HSpacer, */ VSpacer } from '@/components/Spacer';
 
 type Props = {
   imageUrl: string;
@@ -20,6 +20,7 @@ export const CompletePage = ({
   imageUrl,
   commentList,
   onClickBackHome,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onClickEdit,
 }: Props) => {
   return (
@@ -46,7 +47,7 @@ export const CompletePage = ({
               isDisabled={false}
               onClick={onClickBackHome}
             />
-            <HSpacer size={8} />
+            {/* <HSpacer size={8} />
             <OutlineButtonWithRightIcon
               text="編集する"
               rightIcon={<BiSolidRightArrow />}
@@ -55,7 +56,7 @@ export const CompletePage = ({
               maxW="200px"
               isDisabled={false}
               onClick={onClickEdit}
-            />
+            /> */}
           </HStack>
         </Box>
         <Box h="100%" w="50%">
