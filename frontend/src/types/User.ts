@@ -3,5 +3,4 @@ export type User = {
   name: string;
   avatarUrl: string;
   role: string;
-  roomId?: string;
 };

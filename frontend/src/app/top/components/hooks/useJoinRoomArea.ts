@@ -1,11 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/naming-convention */
 import useSWR from 'swr';
 import { fetcher } from '@/utils/fetcher';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@chakra-ui/react';
 import { BASE_URL } from '@/utils/baseUrl';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '@/store/userState';
 
 export const useJoinRoomArea = () => {
+  const setRecoil = useSetRecoilState(userState);
   const router = useRouter();
   const toast = useToast();
   const {
@@ -38,7 +43,18 @@ export const useJoinRoomArea = () => {
         body: JSON.stringify({ name, avatar_url: avatarUrl }),
       },
     )
-      .then(() => router.replace('/'))
+      .then((res) => {
+        res.json().then((data) => {
+          setRecoil({
+            role: data.role,
+            roomId: data.room_id,
+            id: data.user_id,
+            name: '',
+            avatarUrl: '',
+          });
+        });
+        router.replace('/');
+      })
       .catch(() =>
         toast({
           title: '通信に失敗しました。',
@@ -65,7 +81,18 @@ export const useJoinRoomArea = () => {
         body: JSON.stringify({ name, avatar_url: avatarUrl, room_id: roomId }),
       },
     )
-      .then(() => router.replace('/'))
+      .then((res) => {
+        res.json().then((data) => {
+          setRecoil({
+            role: data.role,
+            roomId: data.room_id,
+            id: data.user_id,
+            name: '',
+            avatarUrl: '',
+          });
+        });
+        router.replace('/');
+      })
       .catch(() =>
         toast({
           title: '通信に失敗しました。',
