@@ -41,7 +41,7 @@ export function ClientComponent() {
       listener();
       pictureListener();
     };
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

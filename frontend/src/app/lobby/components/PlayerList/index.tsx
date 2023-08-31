@@ -34,7 +34,7 @@ export const PlayerList = ({ list }: Props) => {
         >
           プレイヤー {playerNum}/6
         </Text>
-        <Box w="full" h="lg" overflow="scroll">
+        <Box w="full" h="lg" overflowY="scroll">
           <VStack spacing={3} w="full">
             {list.length > 0 ? (
               list.map((user) => (
