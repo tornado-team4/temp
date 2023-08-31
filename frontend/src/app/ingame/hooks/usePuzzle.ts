@@ -17,7 +17,11 @@ type ChangedPiece = {
   data: PuzzlePiece;
 };
 
-export const usePuzzle = () => {
+type Props = {
+  room_id: string;
+};
+
+export const usePuzzle = ({ room_id }: Props) => {
   // パズルのピースを一元管理するstate
   const [puzzlePieces, setPuzzlePieces] = useState<PuzzlePiece[]>([]);
 
@@ -27,7 +31,7 @@ export const usePuzzle = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   // TODO: roomIdをどこかから取得する
-  const roomId = '9brRzPHU7qKushbl2DUl';
+  const roomId = room_id !== '' ? room_id : 'RdjowLXkiimSmNoanCxy';
 
   const piecesRef = collection(db, 'room', roomId, 'puzzlePieces');
 
