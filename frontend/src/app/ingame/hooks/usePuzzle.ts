@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/libs/firebase/firebase';
 import { useRouter } from 'next/navigation';
+import { ImageInfo } from '../types/ImageInfo';
 
 type ChangedPiece = {
   type: string;
@@ -32,6 +33,8 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
   // ユーザーのピースを管理する
   const [myPieces, setMyPieces] = useState<PuzzlePiece[]>([]);
 
+  const [picture, setPicture] = useState<ImageInfo>({} as ImageInfo);
+
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   // TODO: roomIdをどこかから取得する
@@ -39,6 +42,7 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
 
   const piecesRef = collection(db, 'room', roomId, 'puzzlePieces');
   const commentsRef = collection(db, 'room', roomId, 'comments');
+  const pictureRef = collection(db, 'room', roomId, 'gameObjects');
 
   const handleTimeout = (totalElapsedTime: number) => {
     console.log(totalElapsedTime);
@@ -155,6 +159,31 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
     });
   };
 
+  const createPictureListener = () => {
+    const q = query(pictureRef);
+
+    return onSnapshot(q, (querySnapshot) => {
+      const pictures: ImageInfo[] = [];
+      querySnapshot.forEach((docPic) => {
+        if (docPic.id == 'Image') {
+          const img = new Image();
+          img.src = docPic.data().url;
+
+          img.onload = () => {
+            const imgWidth = img.width;
+            const imgHeight = img.height;
+            const url = docPic.data().url;
+            pictures.push({
+              url: url,
+              width: imgWidth,
+              height: imgHeight,
+            });
+            setPicture(pictures[0]);
+          };
+        }
+      });
+    });
+  };
   const router = useRouter();
 
   const isCompleted = puzzlePieces.filter((p) => p.isCompleted === true);
@@ -165,9 +194,11 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
     puzzlePieces,
     myPieces,
     inputRef,
+    picture,
     handleTimeout,
     handlePieceComplete,
     handleClickSendMemory,
     createListener,
+    createPictureListener,
   };
 };
