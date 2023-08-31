@@ -25,7 +25,7 @@ type Props = {
   roomId: string;
 };
 
-export const useLobbyPage = ({ roomId }: Props) => {
+export const useLobbyPage = ({ roomId = 'RdjowLXkiimSmNoanCxy' }: Props) => {
   const router = useRouter();
   const toast = useToast();
   const [players, setPlayers] = useState<User[]>([]);
@@ -34,7 +34,7 @@ export const useLobbyPage = ({ roomId }: Props) => {
   );
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const id = roomId;
+  const id = roomId !== '' ? roomId : 'RdjowLXkiimSmNoanCxy';
 
   const userRef = collection(db, 'room', id, 'users');
   const gameObjectRef = collection(db, 'room', id, 'gameObjects');
