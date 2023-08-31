@@ -11,6 +11,7 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import { db } from '@/libs/firebase/firebase';
+import { useRouter } from 'next/navigation';
 
 type ChangedPiece = {
   type: string;
@@ -135,6 +136,12 @@ export const usePuzzle = ({ room_id }: Props) => {
       updatePuzzlePieces(pieces);
     });
   };
+
+  const router = useRouter();
+
+  const isCompleted = puzzlePieces.filter((p) => p.isCompleted === true);
+
+  if (isCompleted.length >= 24) router.replace('/complete');
 
   return {
     puzzlePieces,
