@@ -19,6 +19,7 @@ export function ClientComponent() {
     myPieces,
     inputRef,
     picture,
+    isSendMessage,
     handleTimeout,
     handlePieceComplete,
     handleClickSendMemory,
@@ -68,6 +69,7 @@ export function ClientComponent() {
           <InputMemoryContainer
             inputRef={inputRef}
             onClick={handleClickSendMemory}
+            isDisabled={isSendMessage}
           />
           <PuzzlePieceContainer
             userPieces={myPieces}

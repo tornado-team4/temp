@@ -35,6 +35,8 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
 
   const [picture, setPicture] = useState<ImageInfo>({} as ImageInfo);
 
+  const [isSendMessage, setIsSendMessage] = useState(false);
+
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   // TODO: roomIdをどこかから取得する
@@ -102,6 +104,7 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
       })),
     );
     updateClickSendMemory(randomIndexes);
+    setIsSendMessage(true);
   };
   // 送信ボタン押した時に思い出を送信する
   const sendMemory = () => {
@@ -199,6 +202,7 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
     myPieces,
     inputRef,
     picture,
+    isSendMessage,
     handleTimeout,
     handlePieceComplete,
     handleClickSendMemory,
