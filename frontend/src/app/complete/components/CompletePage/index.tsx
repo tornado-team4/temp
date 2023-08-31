@@ -28,10 +28,10 @@ export const CompletePage = ({
     height: '500px',
   });
 
-  const img = new Image();
-  img.src = imageUrl;
-
   useEffect(() => {
+    const img = new Image();
+    img.src = imageUrl;
+
     img.onload = () => {
       const tempWidth = img.width;
       const tempHeight = img.height;
@@ -56,8 +56,7 @@ export const CompletePage = ({
         });
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [imageUrl]);
 
   console.log('imageSize', imageSize);
 
