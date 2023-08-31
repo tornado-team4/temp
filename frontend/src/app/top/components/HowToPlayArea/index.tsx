@@ -2,6 +2,11 @@
 
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { CaptionCarousel } from '@/components/Carousel/CaptionCarousel';
+import image1 from '/public/howToPlayImages/img1.png';
+import image2 from '/public/howToPlayImages/img2.png';
+import image3 from '/public/howToPlayImages/img3.png';
+import image4 from '/public/howToPlayImages/img4.png';
+import image5 from '/public/howToPlayImages/img5.png';
 
 type Props = {
   borderColor?: string;
@@ -18,22 +23,29 @@ export function HowToPlayArea({
 }: Props) {
   const cards = [
     {
-      title: 'Design Projects 1',
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image:
-        'https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+      title: '1.アバターの設定をしよう',
+      text: 'アバターを設定して自分の個性を表現しよう',
+      image: image1.src,
     },
     {
-      title: 'Design Projects 2',
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image:
-        'https://images.unsplash.com/photo-1438183972690-6d4658e3290e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2274&q=80',
+      title: '2.思い出の写真を登録しよう',
+      text: '思い出の写真を選ぶ中で青春を振り返ってみよう',
+      image: image2.src,
     },
     {
-      title: 'Design Projects 3',
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image:
-        'https://images.unsplash.com/photo-1507237998874-b4d52d1dd655?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+      title: '3.思い出のメッセージをひとこと送ろう',
+      text: 'ひとことの思い出メッセージでパズルピースを手に入れることができるよ',
+      image: image3.src,
+    },
+    {
+      title: '4.パズルを解こう',
+      text: 'パズルができていく過程で青春を取り戻す感覚を一緒に感じませんか？',
+      image: image4.src,
+    },
+    {
+      title: '5.アルバムを見てみよう',
+      text: 'アルバムであの青春の瞬間を思い出すとともに、今この瞬間も新たな青春の1ピースになるはず!',
+      image: image5.src,
     },
   ];
 
