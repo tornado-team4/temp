@@ -46,8 +46,11 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
   const commentsRef = collection(db, 'room', roomId, 'comments');
   const pictureRef = collection(db, 'room', roomId, 'gameObjects');
 
+  const router = useRouter();
+
   const handleTimeout = (totalElapsedTime: number) => {
     console.log(totalElapsedTime);
+    router.replace('/complete');
   };
 
   // ピースを嵌めた時firebaseを更新する
@@ -191,7 +194,6 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
       });
     });
   };
-  const router = useRouter();
 
   const isCompleted = puzzlePieces.filter((p) => p.isCompleted === true);
 
