@@ -54,6 +54,8 @@ export const Piece = ({ index, handleComplete, imageInfo }: Props) => {
           whileTap={{ cursor: 'grabbing' }}
           whileDrag={{ scale: 1 }}
           style={{
+            position: 'relative',
+            bottom: '55px',
             width: imageInfo.width / 6,
             height: imageInfo.height / 4,
             backgroundImage: `url(${imageInfo.url})`,

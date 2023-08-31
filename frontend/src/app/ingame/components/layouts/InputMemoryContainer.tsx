@@ -34,11 +34,15 @@ export function InputMemoryContainer({
             placeholder="この写真へ思い出の一言"
             maxLength={20}
             ref={inputRef}
-            disabled={isDisabled}
+            isDisabled={isDisabled}
           />
         </InputGroup>
 
-        <Button rightIcon={<EmailIcon />} onClick={onClick}>
+        <Button
+          rightIcon={<EmailIcon />}
+          onClick={onClick}
+          isDisabled={isDisabled}
+        >
           送る
         </Button>
       </Flex>

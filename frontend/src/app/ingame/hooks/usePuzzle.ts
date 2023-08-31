@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/libs/firebase/firebase';
 import { useRouter } from 'next/navigation';
+import { ImageInfo } from '../types/ImageInfo';
 
 type ChangedPiece = {
   type: string;
@@ -32,6 +33,10 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
   // ユーザーのピースを管理する
   const [myPieces, setMyPieces] = useState<PuzzlePiece[]>([]);
 
+  const [picture, setPicture] = useState<ImageInfo>({} as ImageInfo);
+
+  const [isSendMessage, setIsSendMessage] = useState(false);
+
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   // TODO: roomIdをどこかから取得する
@@ -39,9 +44,13 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
 
   const piecesRef = collection(db, 'room', roomId, 'puzzlePieces');
   const commentsRef = collection(db, 'room', roomId, 'comments');
+  const pictureRef = collection(db, 'room', roomId, 'gameObjects');
+
+  const router = useRouter();
 
   const handleTimeout = (totalElapsedTime: number) => {
     console.log(totalElapsedTime);
+    router.replace('/complete');
   };
 
   // ピースを嵌めた時firebaseを更新する
@@ -98,6 +107,7 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
       })),
     );
     updateClickSendMemory(randomIndexes);
+    setIsSendMessage(true);
   };
   // 送信ボタン押した時に思い出を送信する
   const sendMemory = () => {
@@ -155,7 +165,35 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
     });
   };
 
-  const router = useRouter();
+  const createPictureListener = () => {
+    const q = query(pictureRef);
+
+    return onSnapshot(q, (querySnapshot) => {
+      const pictures: ImageInfo[] = [];
+      querySnapshot.forEach((docPic) => {
+        if (docPic.id == 'Image') {
+          const img = new Image();
+          img.src = docPic.data().url;
+
+          img.onload = () => {
+            let imgWidth = 1280;
+            let imgHeight = img.height * (imgWidth / img.width);
+            if (imgHeight > 720) {
+              imgHeight = 720;
+              imgWidth = img.width * (imgHeight / img.height);
+            }
+            const url = docPic.data().url;
+            pictures.push({
+              url: url,
+              width: imgWidth,
+              height: imgHeight,
+            });
+            setPicture(pictures[0]);
+          };
+        }
+      });
+    });
+  };
 
   const isCompleted = puzzlePieces.filter((p) => p.isCompleted === true);
 
@@ -165,9 +203,12 @@ export const usePuzzle = ({ id, name, room_id }: Props) => {
     puzzlePieces,
     myPieces,
     inputRef,
+    picture,
+    isSendMessage,
     handleTimeout,
     handlePieceComplete,
     handleClickSendMemory,
     createListener,
+    createPictureListener,
   };
 };

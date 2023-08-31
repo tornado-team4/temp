@@ -6,7 +6,6 @@ import { InputMemoryContainer } from './InputMemoryContainer';
 import { Box, Grid } from '@chakra-ui/react';
 import { PuzzlePieceContainer } from './PuzzlePieceContainer';
 import bg_img from '/public/bg_img.jpeg';
-import { ImageInfo } from '../../types/ImageInfo';
 import { usePuzzle } from '../../hooks/usePuzzle';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/userState';
@@ -19,23 +18,30 @@ export function ClientComponent() {
     puzzlePieces,
     myPieces,
     inputRef,
+    picture,
+    isSendMessage,
     handleTimeout,
     handlePieceComplete,
     handleClickSendMemory,
     createListener,
+    createPictureListener,
   } = usePuzzle({ id, name, room_id: roomId });
 
-  const picture: ImageInfo = {
-    url: '/dummy/dummy2.jpg',
-    width: 1280,
-    height: 720,
-  };
+  // const picture: ImageInfo = {
+  //   url: '/dummy/dummy2.jpg',
+  //   width: 1280,
+  //   height: 720,
+  // };
 
   useEffect(() => {
     const listener = createListener();
+    const pictureListener = createPictureListener();
 
-    return () => listener();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      listener();
+      pictureListener();
+    };
+
   }, []);
 
   return (
@@ -64,6 +70,7 @@ export function ClientComponent() {
           <InputMemoryContainer
             inputRef={inputRef}
             onClick={handleClickSendMemory}
+            isDisabled={isSendMessage}
           />
           <PuzzlePieceContainer
             userPieces={myPieces}
