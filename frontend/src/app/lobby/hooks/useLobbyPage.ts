@@ -2,10 +2,22 @@ import { User } from '@/types/User';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { uploadImage } from '@/libs/firebase/uploadImage';
-import { BASE_URL } from '@/utils/baseUrl';
-import { WS_URL } from '@/utils/baseUrl';
 import { FE_URL } from '@/utils/baseUrl';
 import { useToast } from '@chakra-ui/react';
+import {
+  onSnapshot,
+  query,
+  collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+} from 'firebase/firestore';
+import { db } from '@/libs/firebase/firebase';
+
+type GameObjects = {
+  Image: string;
+  state: string;
+};
 
 type Props = {
   roomId: string;
@@ -15,97 +27,76 @@ export const useLobbyPage = ({ roomId }: Props) => {
   const router = useRouter();
   const toast = useToast();
   const [players, setPlayers] = useState<User[]>([]);
+  const [gameObjects, setGameObjects] = useState<GameObjects>(
+    {} as GameObjects,
+  );
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const id = roomId;
+  const id = 'TBOvYdRCOpVK3aW3qMLp';
 
-  const url = `${WS_URL}/ws/${id}`;
-  const ws = new WebSocket(url);
+  const userRef = collection(db, 'room', id, 'users');
+  const gameObjectRef = collection(db, 'room', id, 'gameObjects');
+
+  if (gameObjects.state === 'playing') {
+    router.replace('/ingame');
+  }
+
+  const createUserListener = () => {
+    const q = query(userRef);
+
+    return onSnapshot(q, (querySnapshot) => {
+      const users: User[] = [];
+      querySnapshot.forEach((doc) => {
+        users.push(doc.data() as User);
+      });
+      setPlayers(users);
+    });
+  };
+
+  const createGameObjectListener = () => {
+    const q = query(gameObjectRef);
+
+    return onSnapshot(q, (querySnapshot) => {
+      let gameObject: GameObjects = {
+        Image: '',
+        state: 'waiting',
+      };
+      if (querySnapshot.docs.length === 0) {
+        addDoc(gameObjectRef, gameObject);
+      } else {
+        gameObject = querySnapshot.docs[0].data() as GameObjects;
+        console.log(gameObject);
+        updateDoc(querySnapshot.docs[0].ref, gameObject);
+      }
+      setGameObjects(gameObject);
+    });
+  };
 
   useEffect(() => {
-    ws.onopen = () => {
-      // 参加者の通知を検知してリストを更新する際のwsメッセージ
-      console.log('ws.onopen');
-      ws.send('connect');
-    };
+    const unsubscribeUser = createUserListener();
+    const unsubscribeGameObject = createGameObjectListener();
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      console.log('ws.onmessage', data);
-
-      if (typeof data === 'string' && data === 'start') {
-        router.replace('/ingame');
-      } else {
-        setPlayers(data);
-      }
-    };
-    ws.onclose = () => {};
-    // コンポーネントがアンマウントされたらWebSocket接続をクローズ
     return () => {
-      ws.close();
+      unsubscribeUser();
+      unsubscribeGameObject();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const connectImageNameToRoomId = async ({
-    fileName,
-  }: {
-    fileName: string;
-  }) => {
-    await fetch(
-      `
-    ${BASE_URL}/api/v1/upload-image
-    `,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ room_id: roomId, file_name: fileName }),
-      },
-    )
-      .then(() => {
-        if (ws.readyState === 1) {
-          // ゲームの開始ボタンが押された場合に参加者にその旨を知らせるためのwsメッセージ
-          ws.send('start');
-
-          router.replace('/ingame');
-        }
-      })
-      .catch(() => {
-        setIsLoading(false);
-        return () =>
-          toast({
-            title: '通信に失敗しました。',
-            description:
-              '申し訳ありませんが、時間をおいてもう一度お試しください。',
-            status: 'error',
-            isClosable: true,
-          });
-      });
-  };
-
-  const handleStart = () => {
+  const handleStart = async () => {
     setIsLoading(true);
     // TODO: ユーザーがホストなのか確認したい
-    if (ws.readyState === 1 && image) {
-      uploadImage(image).then((res) => {
-        if (res) {
-          connectImageNameToRoomId({ fileName: res });
-        } else {
-          setIsLoading(false);
-          toast({
-            title: '画像のアップロードに失敗しました。',
-            description:
-              '申し訳ありませんが、時間をおいてもう一度お試しください。',
-            status: 'error',
-            isClosable: true,
-          });
-        }
+    // if (ws.readyState === 1 && image) {
+    if (image) {
+      const q = query(gameObjectRef);
+      const docRef = await getDocs(q);
+      docRef.forEach(async (doc) => {
+        await updateDoc(doc.ref, {
+          state: 'playing',
+        });
       });
+      uploadImage(image);
     }
   };
-
   const copylink = () => {
     const link = `${FE_URL}/top/${roomId}`;
     navigator.clipboard.writeText(link);

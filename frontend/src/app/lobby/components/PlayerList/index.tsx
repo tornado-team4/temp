@@ -38,7 +38,7 @@ export const PlayerList = ({ list }: Props) => {
           <VStack spacing={3} w="full">
             {list.length > 0 ? (
               list.map((user) => (
-                <Card key={user.id} bg="white" w="full">
+                <Card key={user.name} bg="white" w="full">
                   <CardBody>
                     <HStack spacing={4}>
                       <Avatar size="md" src={user.avatarUrl} />
