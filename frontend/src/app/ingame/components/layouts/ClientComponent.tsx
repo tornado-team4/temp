@@ -41,6 +41,7 @@ export function ClientComponent() {
       listener();
       pictureListener();
     };
+
   }, []);
 
   return (

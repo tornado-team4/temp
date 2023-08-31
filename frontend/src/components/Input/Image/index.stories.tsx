@@ -14,5 +14,6 @@ type Story = StoryObj<typeof InputImage>;
 export const Default: Story = {
   args: {
     label: '新規パズル作成',
+    isChange: false,
   },
 };

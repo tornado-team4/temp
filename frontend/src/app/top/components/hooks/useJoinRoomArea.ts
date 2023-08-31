@@ -48,7 +48,7 @@ export const useJoinRoomArea = () => {
             roomId: data.room_id,
             id: data.user_id,
             name: '',
-            avatarUrl: '',
+            avatar: '',
           });
         });
         router.replace('/lobby');
@@ -86,7 +86,7 @@ export const useJoinRoomArea = () => {
             roomId: data.room_id,
             id: data.user_id,
             name: '',
-            avatarUrl: '',
+            avatar: '',
           });
         });
         router.replace('/lobby');
