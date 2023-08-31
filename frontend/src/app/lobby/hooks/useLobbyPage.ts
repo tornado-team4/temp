@@ -5,6 +5,8 @@ import { uploadImage } from '@/libs/firebase/uploadImage';
 import { BASE_URL } from '@/utils/baseUrl';
 import { WS_URL } from '@/utils/baseUrl';
 import { useToast } from '@chakra-ui/react';
+// import { useRecoilState } from 'recoil';
+// import { userAtom } from '@/libs/atoms/userAtom';
 
 type Props = {
   roomId: string;
@@ -17,6 +19,8 @@ export const useLobbyPage = ({ roomId }: Props) => {
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const id = roomId;
+
+  // const [user, setuser] = useRecoilState(userAtom);
 
   const url = `${WS_URL}/ws/${id}`;
   const ws = new WebSocket(url);
