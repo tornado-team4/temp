@@ -1,6 +1,5 @@
 'use client';
 
-import { User } from '@/types/User';
 import {
   Box,
   VStack,
@@ -10,6 +9,8 @@ import {
   HStack,
   Avatar,
 } from '@chakra-ui/react';
+
+import { User } from '@/types/User';
 
 type Props = {
   list: User[];

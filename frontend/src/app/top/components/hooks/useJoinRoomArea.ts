@@ -1,11 +1,13 @@
-import useSWR from 'swr';
-import { fetcher } from '@/utils/fetcher';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@chakra-ui/react';
-import { BASE_URL } from '@/utils/baseUrl';
+import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+import useSWR from 'swr';
+
+import { useToast } from '@chakra-ui/react';
+
 import { userState } from '@/store/userState';
+import { BASE_URL } from '@/utils/baseUrl';
+import { fetcher } from '@/utils/fetcher';
 
 export const useJoinRoomArea = () => {
   const setRecoil = useSetRecoilState(userState);

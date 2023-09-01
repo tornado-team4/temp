@@ -2,6 +2,8 @@
 
 import type { ChangeEventHandler } from 'react';
 import { useState } from 'react';
+import { GrAdd } from 'react-icons/gr';
+
 import {
   Center,
   FormLabel,
@@ -13,7 +15,6 @@ import {
   HStack,
   Text,
 } from '@chakra-ui/react';
-import { GrAdd } from 'react-icons/gr';
 
 type Props = {
   id: string;

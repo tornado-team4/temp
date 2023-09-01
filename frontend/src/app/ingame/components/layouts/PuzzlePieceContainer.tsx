@@ -1,10 +1,12 @@
 'use client';
 
-import { Center, Grid, GridItem } from '@chakra-ui/react';
 import React from 'react';
-import { Piece } from '../elements/Puzzle/Piece';
-import { ImageInfo } from '../../types/ImageInfo';
-import { PuzzlePiece } from '../../types/PuzzlePiece';
+
+import { Center, Grid, GridItem } from '@chakra-ui/react';
+
+import { Piece } from '@/app/ingame/components/elements/Puzzle/Piece';
+import { ImageInfo } from '@/app/ingame/types/ImageInfo';
+import { PuzzlePiece } from '@/app/ingame/types/PuzzlePiece';
 
 type Props = {
   userPieces: PuzzlePiece[];

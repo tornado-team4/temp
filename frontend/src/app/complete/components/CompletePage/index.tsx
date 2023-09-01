@@ -1,13 +1,16 @@
 'use client';
+import { useEffect, useState } from 'react';
+import { BsHouse } from 'react-icons/bs';
+
 import { Box, HStack, Image as ChakraImage } from '@chakra-ui/react';
+
 import bg_img from '/public/bg_img.jpeg';
-import { Comment } from '@/types/Comment';
+
 import { CommentList } from '@/app/complete/components/CommentList';
 import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWithRightIcon';
-import { BsHouse } from 'react-icons/bs';
 // import { BiSolidRightArrow } from 'react-icons/bi';
 import { /*  HSpacer, */ VSpacer } from '@/components/Spacer';
-import { useEffect, useState } from 'react';
+import { Comment } from '@/types/Comment';
 
 type Props = {
   imageUrl: string;

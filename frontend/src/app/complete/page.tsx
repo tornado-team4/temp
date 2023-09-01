@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
+import { fetchCommentList } from '@/app/api/fetchCommentList';
+import { fetchCompleteImage } from '@/app/api/fetchCompleteImage';
 import { CompletePage } from '@/app/complete/components/CompletePage';
 import { userState } from '@/store/userState';
 import { Comment } from '@/types/Comment';
-import { fetchCommentList } from '@/app/api/fetchCommentList';
-import { fetchCompleteImage } from '@/app/api/fetchCompleteImage';
 
 export type CommentObj = {
   allComments: Comment[];

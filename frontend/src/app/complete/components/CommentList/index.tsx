@@ -1,7 +1,8 @@
 'use client';
 
-import { Comment } from '@/types/Comment';
 import { Box, VStack, Text } from '@chakra-ui/react';
+
+import { Comment } from '@/types/Comment';
 
 type Props = {
   commentList: Comment[];

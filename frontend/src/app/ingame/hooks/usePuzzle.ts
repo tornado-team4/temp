@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { PuzzlePiece } from '../types/PuzzlePiece';
 import {
   addDoc,
   collection,
@@ -11,9 +9,12 @@ import {
   where,
   writeBatch,
 } from 'firebase/firestore';
-import { db } from '@/libs/firebase/firebase';
 import { useRouter } from 'next/navigation';
-import { ImageInfo } from '../types/ImageInfo';
+import React, { useState } from 'react';
+
+import { ImageInfo } from '@/app/ingame/types/ImageInfo';
+import { PuzzlePiece } from '@/app/ingame/types/PuzzlePiece';
+import { db } from '@/libs/firebase/firebase';
 
 type ChangedPiece = {
   type: string;

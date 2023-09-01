@@ -1,6 +1,7 @@
 // InputName.stories.ts|tsx
 
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { InputName } from './index';
 
 const meta: Meta<typeof InputName> = {

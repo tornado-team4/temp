@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { BASE_URL } from '@/utils/baseUrl';
 import { Dispatch, SetStateAction } from 'react';
+
+import { BASE_URL } from '@/utils/baseUrl';
 
 export const fetchCompleteImage = (
   roomId: string,

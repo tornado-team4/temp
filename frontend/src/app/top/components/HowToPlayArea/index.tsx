@@ -1,7 +1,9 @@
 'use client';
 
 import { Box, Text, VStack } from '@chakra-ui/react';
+
 import { CaptionCarousel } from '@/components/Carousel/CaptionCarousel';
+
 import image1 from '/public/howToPlayImages/img1.png';
 import image2 from '/public/howToPlayImages/img2.png';
 import image3 from '/public/howToPlayImages/img3.png';

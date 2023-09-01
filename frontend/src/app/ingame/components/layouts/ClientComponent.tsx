@@ -1,14 +1,17 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { PuzzleContainer } from './PuzzleContainer';
-import { InputMemoryContainer } from './InputMemoryContainer';
-import { Box, Grid } from '@chakra-ui/react';
-import { PuzzlePieceContainer } from './PuzzlePieceContainer';
-import bg_img from '/public/bg_img.jpeg';
-import { usePuzzle } from '../../hooks/usePuzzle';
 import { useRecoilValue } from 'recoil';
+
+import { Box, Grid } from '@chakra-ui/react';
+
+import { usePuzzle } from '@/app/ingame/hooks/usePuzzle';
 import { userState } from '@/store/userState';
+import { InputMemoryContainer } from '@/app/ingame/components/layouts/InputMemoryContainer';
+import { PuzzleContainer } from '@/app/ingame/components/layouts/PuzzleContainer';
+import { PuzzlePieceContainer } from '@/app/ingame/components/layouts/PuzzlePieceContainer';
+
+import bg_img from '/public/bg_img.jpeg';
 
 // import { set } from 'firebase/database';
 

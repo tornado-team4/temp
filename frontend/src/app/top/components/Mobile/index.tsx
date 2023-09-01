@@ -1,5 +1,7 @@
 import { Box, Center, Text } from '@chakra-ui/react';
+
 import React from 'react';
+
 import bg_img from '/public/bg_img.jpeg';
 
 export const Mobile = () => {

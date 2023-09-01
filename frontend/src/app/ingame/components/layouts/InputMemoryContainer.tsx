@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useState } from 'react';
+
 import { EditIcon, EmailIcon } from '@chakra-ui/icons';
 import {
   Button,
@@ -9,7 +11,6 @@ import {
   InputGroup,
   InputLeftElement,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
 
 type Props = {
   isDisabled?: boolean;

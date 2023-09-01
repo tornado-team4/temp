@@ -1,6 +1,7 @@
 'use client';
-import { Box, Text } from '@chakra-ui/react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+
+import { Box, Text } from '@chakra-ui/react';
 
 type Props = {
   onComplete: (totalElapsedTime: number) => void;

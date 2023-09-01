@@ -1,8 +1,9 @@
 // Avatar.stories.ts|tsx
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { Avatar } from './index';
 import { useState } from 'react';
+
+import { Avatar } from './index';
 
 const meta: Meta<typeof Avatar> = {
   title: 'TopPage/Avatar',

@@ -1,9 +1,9 @@
 'use client';
 
-import { Box, Image, Text, VStack } from '@chakra-ui/react';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { Box, Image, Text, VStack } from '@chakra-ui/react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
