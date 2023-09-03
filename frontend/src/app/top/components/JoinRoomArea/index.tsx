@@ -1,5 +1,8 @@
 'use client';
 
+import { BiSolidRightArrow } from 'react-icons/bi';
+
+import { InfoOutlineIcon } from '@chakra-ui/icons';
 import {
   Box,
   Center,
@@ -14,12 +17,11 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
-import { BiSolidRightArrow } from 'react-icons/bi';
+
 import { Avatar } from '@/app/top/components/Avatar';
+import { useJoinRoomArea } from '@/app/top/components/hooks/useJoinRoomArea';
 import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWithRightIcon';
 import { InputName } from '@/components/Input/Name';
-import { useJoinRoomArea } from '../hooks/useJoinRoomArea';
-import { InfoOutlineIcon } from '@chakra-ui/icons';
 import { VSpacer } from '@/components/Spacer';
 
 type Props = {

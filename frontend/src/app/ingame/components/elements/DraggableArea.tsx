@@ -1,7 +1,9 @@
-import { Box } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
-import { ImageInfo } from '../../types/ImageInfo';
+
+import { Box } from '@chakra-ui/react';
+
+import { ImageInfo } from '@/app/ingame/types/ImageInfo';
 
 type Props = {
   index: number;

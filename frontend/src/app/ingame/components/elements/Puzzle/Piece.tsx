@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
 import { AnimatePresence, PanInfo, motion } from 'framer-motion';
+import React, { useState } from 'react';
+
 import { ImageInfo } from '@/app/ingame/types/ImageInfo';
 
 type Props = {

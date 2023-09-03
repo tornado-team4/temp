@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { BASE_URL } from '@/utils/baseUrl';
 import { Dispatch, SetStateAction } from 'react';
+
 import { CommentObj } from '@/app/complete/page';
+import { BASE_URL } from '@/utils/baseUrl';
 
 export const fetchCommentList = (
   roomId: string,

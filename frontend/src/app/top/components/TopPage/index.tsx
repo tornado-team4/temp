@@ -1,8 +1,10 @@
 'use client';
 
 import { Stack, Box, VStack, Image } from '@chakra-ui/react';
+
 import { JoinRoomArea } from '@/app/top/components/JoinRoomArea';
 import { HowToPlayArea } from '@/app/top/components/HowToPlayArea';
+
 import logo from '/public/logo.png';
 import bg_img from '/public/bg_img.jpeg';
 

@@ -2,6 +2,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { BiSolidRightArrow } from 'react-icons/bi';
+
 import { OutlineButtonWithRightIcon } from './index';
 
 const meta: Meta<typeof OutlineButtonWithRightIcon> = {

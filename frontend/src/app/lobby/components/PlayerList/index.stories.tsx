@@ -1,6 +1,7 @@
 // PlayerList.stories.ts|tsx
 
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { PlayerList } from './index';
 
 const meta: Meta<typeof PlayerList> = {

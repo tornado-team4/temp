@@ -1,5 +1,7 @@
 import { ref, uploadBytes } from 'firebase/storage';
+
 import { generateRandomString } from '@/utils/generateRandomString';
+
 import { storage } from './firebase'; // FIXME: 絶対パスで指定するようにする
 
 export const uploadImage = async (file: File) => {

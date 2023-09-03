@@ -1,6 +1,7 @@
 'use client';
 
 import type { ChangeEventHandler } from 'react';
+
 import { Input } from '@chakra-ui/react';
 
 type Props = {

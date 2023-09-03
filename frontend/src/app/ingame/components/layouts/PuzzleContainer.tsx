@@ -1,11 +1,13 @@
 'use client';
 
-import { Box, Center, Grid } from '@chakra-ui/react';
 import React from 'react';
-import { DraggableArea } from '../elements/DraggableArea';
-import { Timer } from './Timer';
-import { PuzzlePiece } from '../../types/PuzzlePiece';
-import { ImageInfo } from '../../types/ImageInfo';
+
+import { Box, Center, Grid } from '@chakra-ui/react';
+
+import { DraggableArea } from '@/app/ingame/components/elements/DraggableArea';
+import { Timer } from '@/app/ingame/components/layouts/Timer';
+import { ImageInfo } from '@/app/ingame/types/ImageInfo';
+import { PuzzlePiece } from '@/app/ingame/types/PuzzlePiece';
 
 type Props = {
   onComplete: (totalElapsedTime: number) => void;

@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import { InputImage } from '@/components/Input/Image';
+
 import { Box, VStack, Text } from '@chakra-ui/react';
+
+import { InputImage } from '@/components/Input/Image';
 
 type Props = {
   isHost: boolean;

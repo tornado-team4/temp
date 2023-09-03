@@ -1,6 +1,8 @@
 'use client';
 
 import type { Dispatch, SetStateAction } from 'react';
+import { MdReplay } from 'react-icons/md';
+
 import {
   Box,
   Avatar as ChakraAvatar,
@@ -9,7 +11,6 @@ import {
   ResponsiveValue,
   SkeletonCircle,
 } from '@chakra-ui/react';
-import { MdReplay } from 'react-icons/md';
 
 type Props = {
   boxSize?: number;

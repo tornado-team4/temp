@@ -1,6 +1,7 @@
 // PuzzleMaker.stories.ts|tsx
 
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { PuzzleMaker } from './index';
 
 const meta: Meta<typeof PuzzleMaker> = {

@@ -1,17 +1,20 @@
 'use client';
 
-import { VSpacer } from '@/components/Spacer';
-import { Box, VStack, Image, Stack, HStack } from '@chakra-ui/react';
-import { LinkIcon } from '@chakra-ui/icons';
 import { BiSolidRightArrow } from 'react-icons/bi';
-import bg_img from 'public/bg_img.jpeg';
-import logo from 'public/logo.png';
+import { useRecoilValue } from 'recoil';
+
+import { LinkIcon } from '@chakra-ui/icons';
+import { Box, VStack, Image, Stack, HStack } from '@chakra-ui/react';
+
 import { PlayerList } from '@/app/lobby/components/PlayerList';
 import { PuzzleMaker } from '@/app/lobby/components/PuzzleMaker';
-import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWithRightIcon';
 import { useLobbyPage } from '@/app/lobby/hooks/useLobbyPage';
-import { useRecoilValue } from 'recoil';
+import { OutlineButtonWithRightIcon } from '@/components/Button/OutlineButtonWithRightIcon';
+import { VSpacer } from '@/components/Spacer';
 import { userState } from '@/store/userState';
+
+import bg_img from 'public/bg_img.jpeg';
+import logo from 'public/logo.png';
 
 export const LobbyPage = () => {
   const recoilUserState = useRecoilValue(userState);

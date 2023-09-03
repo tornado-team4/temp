@@ -1,9 +1,4 @@
-import { User } from '@/types/User';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { uploadImage } from '@/libs/firebase/uploadImage';
-import { BASE_URL, FE_URL } from '@/utils/baseUrl';
-import { useToast } from '@chakra-ui/react';
+import axios from 'axios';
 import {
   onSnapshot,
   query,
@@ -12,9 +7,16 @@ import {
   getDocs,
   updateDoc,
 } from 'firebase/firestore';
-import { db } from '@/libs/firebase/firebase';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
+import { useToast } from '@chakra-ui/react';
+
 import { fetchImageUrl } from '@/libs/firebase/fetchImageUrl';
-import axios from 'axios';
+import { db } from '@/libs/firebase/firebase';
+import { uploadImage } from '@/libs/firebase/uploadImage';
+import { User } from '@/types/User';
+import { BASE_URL, FE_URL } from '@/utils/baseUrl';
 
 type GameObjects = {
   Image: string;

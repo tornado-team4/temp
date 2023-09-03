@@ -1,6 +1,7 @@
 // CaptionCarousel.stories.ts|tsx
 
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { CaptionCarousel } from './index';
 
 const meta: Meta<typeof CaptionCarousel> = {
